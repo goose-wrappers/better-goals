@@ -1,0 +1,98 @@
+{
+	"name": "Better Goals",
+	"description": "Better Goals",
+	"key": "dev.goosewrappers.better-goals",
+	"baseUrl": "https://5lnp2zlhsleucqwrk6uya4bt540bhvmk.lambda-url.us-east-1.on.aws",
+	"vendor": {
+		"name": "Goose Wrappers",
+		"url": "https://goosewrappers.dev/"
+	},
+	"authentication": {
+		"type": "jwt"
+	},
+	"lifecycle": {
+		"installed": "/app-installed-callback",
+		"uninstalled": "/app-installed-callback"
+	},
+	"scopes": [
+		"READ",
+		"WRITE",
+		"DELETE"
+	],
+	"apiVersion": 1,
+	"modules": {
+		"generalPages": [
+			{
+				"key": "global-configuration",
+				"location": "system.top.navigation.bar",
+				"name": {
+					"value": "Better Goals \uD83C\uDFAF"
+				},
+				"url": "/global-configuration"
+			}
+		],
+		"configurePage": {
+			"key": "better-goals-configuration",
+			"name": {
+				"value": "Better Goals"
+			},
+			"url": "/global-configuration"
+		},
+		"webItems": [
+			{
+				"key": "board-links",
+				"location": "jira.agile.board.tools",
+				"weight": 10,
+				"url": "/webpanel?_=1",
+				"target": {
+					"type": "dialog",
+					"options": {
+						"width": "800px",
+						"height": "400px",
+						"chrome": false
+					}
+				},
+				"name": {
+					"value": "Better Goals \uD83C\uDFAF"
+				},
+				"conditions": [
+					{
+						"condition": "user_is_logged_in"
+					},
+					{
+						"or": [
+							{
+								"condition": "entity_property_equal_to",
+								"params": {
+									"entity": "project",
+									"propertyKey": "better-goals-admin-settings",
+									"objectName": "isVisible",
+									"value": "true"
+								}
+							},
+							{
+								"condition": "entity_property_exists",
+								"invert": true,
+								"params": {
+									"entity": "project",
+									"propertyKey": "better-goals-admin-settings"
+								}
+							}
+						]
+					}
+				]
+			}
+		],
+		"webPanels": [
+			{
+				"key": "my-configuration-page",
+				"url": "/configuration",
+				"name": {
+					"value": "Better Goals \uD83C\uDFAF"
+				},
+				"location": "jira.agile.board.configuration",
+				"weight": 1000
+			}
+		]
+	}
+}

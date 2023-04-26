@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+	<script src="https://connect-cdn.atl-paas.net/all.js" data-options="resize:false;margin:false"></script>
+
+	<style>
+		.ac-content {
+			height: 100vh;
+		}
+
+		.dialog-wrapper {
+			padding: 24px;
+			height: 100%;
+			box-sizing: border-box;
+			position: relative;
+		}
+
+		.EmojiPickerReact {
+			--epr-search-input-height: 34px !important;
+			--epr-category-navigation-button-size: 24px !important;
+			--epr-emoji-size: 24px !important;
+			--epr-header-padding: 4px 10px !important;
+		}
+
+		.edit-view {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			height: 100%;
+		}
+
+		.edit-view .field-validation-failed {
+			outline: 2px solid;
+			border-radius: 3px;
+			outline-color: var(--ds-border-danger, #DE350B);
+		}
+
+		.edit-view .iteration-select-label {
+			display: inline-block;
+			font-weight: 600;
+			font-size: 0.9em;
+			padding-right: 0.5em;
+			color: var(--ds-text-subtle, var(--ds-text-subtlest, #6B778C));
+		}
+
+		.edit-view .iteration-select-value {
+			display: inline-block;
+			cursor: pointer;
+			padding: 3px 6px;
+		}
+
+		.edit-view .iteration-select-value:hover {
+			background-color: var(--ds-background-input-hovered, #EBECF0);
+		}
+
+		.tip-view {
+			font-style: italic
+		}
+
+		.global-configuration-view img.project-avatar-img {
+			border-radius: 3px;
+			flex: 0 0 auto;
+			box-sizing: border-box;
+			width: 24px;
+			height: 24px;
+			margin-right: 12px;
+		}
+
+		.iteration-view .recommendation-item {
+			display: inline-block;
+		}
+
+		.iteration-view .recommendation-item img {
+			height: 140px;
+			border-radius: 6px;
+		}
+
+		.iteration-view .recommendation-item:nth-child(n+2) {
+			margin-left: 1.5em;
+		}
+
+		.iteration-view input[type=checkbox]:checked ~ span {
+			text-decoration: line-through;
+			color: gray;
+		}
+
+		.confetti-canvas {
+			width: 100%;
+			height: 100%;
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: 10000;
+		}
+
+		.dialog-header {
+			line-height: 2em;
+			vertical-align: middle;
+		}
+
+		.dialog-footer {
+			width: 100%;
+			flex: 0;
+		}
+
+		input[type=checkbox] {
+			cursor: pointer;
+		}
+
+		.confetti-gif {
+			user-select: none;
+			pointer-events: none;
+			position: fixed;
+			width: 25em;
+		}
+
+		.confetti-gif-bl {
+			left: -4em;
+			bottom: -4em;
+		}
+
+		.confetti-gif-br {
+			transform: scaleX(-1);
+			right: -4em;
+			bottom: -4em;
+		}
+
+		.confetti-gif-tl {
+			transform: scaleY(-1);
+			left: -4em;
+			top: -4em;
+		}
+
+		.confetti-gif-tr {
+			transform: scale(-1);
+			right: -4em;
+			top: -4em;
+		}
+
+		.trimmed-checkbox span {
+			width: 100%;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		/* make the tabs centered and a bit larger */
+		.edit-view .tabs-container div[role=tablist] {
+			width: auto;
+			margin: 0 auto;
+			font-size: 1.25em
+		}
+
+		/* tab-container must occupy the entire dialog */
+		.edit-view .tabs-container div[class$="-Tabs"] {
+			height: 100%;
+		}
+
+		.edit-view .editable-goal-item label {
+			cursor: pointer;
+		}
+
+		.DUMMY input[type=checkbox] ~ span {
+			--thickness: .1em;
+			--strike: 0;
+			background: linear-gradient(90deg, transparent, currentColor 0) no-repeat right center/calc(var(--strike) * 100%) var(--thickness);
+			transition: background-size .4s ease;
+			cursor: pointer;
+		}
+
+		.DUMMY input[type=checkbox]:checked ~ span {
+			--strike: 1; /* "1" means "true" (show the strike line) */
+			background-position-x: left;
+			color: gray;
+		}
+
+		div.add-another-goal span {
+			cursor: pointer;
+			color: gray;
+		}
+
+		div.aui-page-header-main div {
+			/* <header className="aui-page-header"> adds 24px margin in configuration page and causes scrollbar */
+			margin: 0;
+		}
+	</style>
+
+</head>
+<body data-aui-version="9.5.0" class="aui-page">
+<noscript>You need to enable JavaScript to run this app.</noscript>
+<div id="root"></div>
+</body>
+</html>
+

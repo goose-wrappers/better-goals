@@ -1,0 +1,27 @@
+name: better-goals
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - run: npm install --save-dev
+      - run: npm run build
+      - run: aws s3 cp --recursive --acl public-read build/ s3://better-goals-jira-addon
+      - run: zip function.zip index.js atlassian-connect.json build/index.html
+      - run: aws lambda update-function-code --function-name better-goals --zip-file fileb://function.zip
+      - run: echo "You can now happily install the addon with this url https://5lnp2zlhsleucqwrk6uya4bt540bhvmk.lambda-url.us-east-1.on.aws/atlassian-connect.json"
