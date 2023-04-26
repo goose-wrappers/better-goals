@@ -13,14 +13,14 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16.x
+      - run: npm install
+      - run: npm run build
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-      - run: npm install --save-dev
-      - run: npm run build
       - run: aws s3 cp --recursive --acl public-read build/ s3://better-goals-jira-addon
       - run: zip function.zip index.js atlassian-connect.json build/index.html
       - run: aws lambda update-function-code --function-name better-goals --zip-file fileb://function.zip
