@@ -28,4 +28,4 @@ export const FadeOutFlag: FC<{
 			</div>
 		</div>
 	);
-}
+};

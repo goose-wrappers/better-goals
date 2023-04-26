@@ -16,7 +16,7 @@ export const TipView: FC<{
 				How to facilitate effective discussions around goals during standup: <a href="https://medium.com/shortlink" target="_blank" rel="noreferrer noopener">https://medium.com/shortlink</a>
 			</>
 		);
-	}, [])
+	}, []);
 
 	return (
 		<div className="tip-view" style={{width: "75%"}}>

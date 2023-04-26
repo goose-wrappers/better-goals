@@ -1,7 +1,7 @@
 import React, {FC, ReactElement, useEffect, useState} from "react";
-import WarningIcon from '@atlaskit/icon/glyph/warning'
-import { Y300 } from '@atlaskit/theme/colors';
-import { token } from '@atlaskit/tokens';
+import WarningIcon from "@atlaskit/icon/glyph/warning";
+import {Y300} from "@atlaskit/theme/colors";
+import {token} from "@atlaskit/tokens";
 import {AtlassianClient} from "../services/atlassian-client";
 import {BetterGoalsLogo} from "./BetterGoalsLogo";
 import {DaysLeft} from "./DaysLeft";
@@ -11,7 +11,6 @@ import {LoggerService} from "../services/logger-service";
 import Settings from "@atlaskit/icon/glyph/editor/settings";
 import {GoalList} from "./GoalList";
 import Flag from "@atlaskit/flag";
-import InfoIcon from "@atlaskit/icon/glyph/info";
 // import {RecommendationView} from "./RecommendationView";
 import Blanket from "@atlaskit/blanket";
 import Spinner from "@atlaskit/spinner";
@@ -99,7 +98,7 @@ export const IterationView: FC<{
 				// hack: so we don't re-render this flag on checkbox change
 				setTimeout(() => setShowFirstIterationCongrats(false), 5000);
 			}
-		})
+		});
 	}, []);
 
 	const IterationViewHeader = () => {
@@ -119,7 +118,7 @@ export const IterationView: FC<{
 			<div style={{float: "right"}}>
 				<div style={{display: "table"}}>
 					<div style={{display: "table-cell", verticalAlign: "middle"}}>
-						<Settings label='Configure' primaryColor="#333"/>
+						<Settings label="Configure" primaryColor="#333"/>
 					</div>
 					<div style={{display: "table-cell", verticalAlign: "middle", paddingLeft: "0.5em"}}>
 						<a style={{cursor: "pointer", textDecoration: "none", color: "#333"}} onClick={onConfigure}>Configure</a>
@@ -134,11 +133,11 @@ export const IterationView: FC<{
 		return <>
 			<Blanket isTinted={true} onBlanketClicked={onBlanketClicked}></Blanket>
 			<div style={{position: "absolute", width: "100%"}}>
-				<Flag icon={<WarningIcon primaryColor={token('color.icon.information', Y300)} label="Warning"/>} id="1" appearance="normal" title="Oh Oh!" description="Are you sure you want to edit your ongoing iteration?"
-				      actions={[
-					      {content: "Yes!", onClick: onConfigureClicked},
-					      {content: "Not now", onClick: onCloseFlag},
-				      ]}
+				<Flag icon={<WarningIcon primaryColor={token("color.icon.information", Y300)} label="Warning"/>} id="1" appearance="normal" title="Oh Oh!" description="Are you sure you want to edit your ongoing iteration?"
+					actions={[
+						{content: "Yes!", onClick: onConfigureClicked},
+						{content: "Not now", onClick: onCloseFlag},
+					]}
 				/>
 			</div>
 		</>;
@@ -201,7 +200,7 @@ export const IterationView: FC<{
 
 		const fadeOut = () => {
 			setVisible(false);
-		}
+		};
 
 		useEffect(() => {
 			const id = setTimeout(() => fadeOut(), 3000);
@@ -283,8 +282,8 @@ export const IterationView: FC<{
 									<div style={{flex: 1}}>
 										<div style={{width: "75%", margin: "auto", textAlign: "center", marginTop: "2em", paddingBottom: "1em"}}>
 											<DaysLeft iteration_length_weeks={addonConfiguration.iterationLengthWeeks}
-												  iteration_start_date={addonConfiguration.iterationStartDate}
-												  onNewIteration={onStartNewIterationClicked}/>
+												iteration_start_date={addonConfiguration.iterationStartDate}
+												onNewIteration={onStartNewIterationClicked}/>
 										</div>
 
 										{/* start new iteration button when all tasks complete */}

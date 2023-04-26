@@ -66,12 +66,12 @@ export const EditView: FC<{
 
 	const isNewDateValid = () => {
 		if (addonConfiguration) {
-			const iterationEndDate = IterationDurationUtils.iterationEndDate(addonConfiguration.iterationStartDate, addonConfiguration.iterationLengthWeeks)
+			const iterationEndDate = IterationDurationUtils.iterationEndDate(addonConfiguration.iterationStartDate, addonConfiguration.iterationLengthWeeks);
 			return iterationEndDate > (new Date());
 		}
 
 		return true;
-	}
+	};
 
 	const SelectWithBlanket: FC<{
 		placeholder: string;
@@ -92,7 +92,7 @@ export const EditView: FC<{
 						}),
 						menu: (base) => ({
 							...base,
-							zIndex: '999',
+							zIndex: "999",
 							bottom: "-7em",
 							left: "24em",
 							width: "50%",
@@ -185,7 +185,7 @@ export const EditView: FC<{
 
 	const blankedClicked = () => {
 		setDatePickerVisible(false);
-	}
+	};
 
 	useEffect(() => {
 		boardService.getConfiguration().then((configuration: AddonConfiguration) => {

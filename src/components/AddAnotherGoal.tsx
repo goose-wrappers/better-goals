@@ -30,9 +30,9 @@ export const AddAnotherGoal: FC<{
 	return (
 		<div className="add-another-goal">
 			<Field aria-required={true}
-			       name="Add another goal"
-			       isRequired
-			       defaultValue="">
+				name="Add another goal"
+				isRequired
+				defaultValue="">
 				{() => (
 					<Fragment>
 						{!showEditField &&

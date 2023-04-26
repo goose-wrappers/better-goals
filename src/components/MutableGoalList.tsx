@@ -37,6 +37,7 @@ export const MutableGoalList: FC<{
 	};
 
 	const onChange = () => {
+		// ignored
 	};
 
 	const onDragEnd = (result: DropResult) => {
@@ -70,8 +71,8 @@ export const MutableGoalList: FC<{
 								<Draggable draggableId={goal.id} key={goal.id} index={index}>
 									{(provided) => (
 										<div ref={provided.innerRef}
-										     {...provided.draggableProps}
-										     {...provided.dragHandleProps}>
+											{...provided.draggableProps}
+											{...provided.dragHandleProps}>
 											<EditableGoalItem key={goal.id} goal={goal} onChange={onChange} onDelete={onDeleteGoal}/>
 										</div>
 									)}

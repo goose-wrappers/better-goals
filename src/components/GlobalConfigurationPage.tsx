@@ -5,7 +5,6 @@ import {HeadType, RowType} from "@atlaskit/dynamic-table/types";
 import {AtlassianClient} from "../services/atlassian-client";
 import {JiraProject} from "../models/jira-project";
 import {ToggleWithSpinner} from "./TriggerWithSpinner";
-import {LoggerService} from "../services/logger-service";
 
 interface BetterGoalsProjectConfiguration {
 	version: number;

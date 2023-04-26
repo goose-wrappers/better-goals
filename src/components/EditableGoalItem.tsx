@@ -27,7 +27,7 @@ export const EditableGoalItem: FC<{
 		setIsInlineEdit(false);
 
 		// delete items if the text suddenly becomes empty
-		if (goal.label === '') {
+		if (goal.label === "") {
 			onDelete(goal.id);
 		}
 	};
@@ -48,8 +48,7 @@ export const EditableGoalItem: FC<{
 					<div style={{float: "left", width: "50%"}} className="editable-goal-item">
 						{!isInlineEdit &&
 							<div className="trimmed-checkbox" title={goal.label}>
-								<Checkbox name={goal.label} label={goal.label} defaultChecked={goal.isComplete}
-									  onClick={(e: any) => handleCheckboxClicked(goal, e, e.target.checked)}/>
+								<Checkbox name={goal.label} label={goal.label} defaultChecked={goal.isComplete} onClick={(e: any) => handleCheckboxClicked(goal, e, e.target.checked)}/>
 							</div>
 						}
 

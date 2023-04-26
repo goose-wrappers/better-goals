@@ -14,7 +14,7 @@ export class ErrorPage extends React.Component {
 		let message;
 
 		if (error.status === 404) {
-			message = (<p>There's nothing here.</p>);
+			message = (<p>There is nothing here.</p>);
 		} else if (error.status === 500) {
 			message = <p>There was a problem fetching the data for this page.</p>;
 		} else {

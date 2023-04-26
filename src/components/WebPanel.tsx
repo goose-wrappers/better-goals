@@ -3,7 +3,6 @@ import {DatastoreService} from "../services/datastore-service";
 import {AddonConfiguration} from "../models/addon-configuration";
 import {LoggerService} from "../services/logger-service";
 import {QueryParserService} from "../services/query-parser-service";
-import {Confetti} from "../services/confetti";
 import {BoardService} from "../services/board-service";
 import {EditView} from "./EditView";
 import {IterationView} from "./IterationView";
@@ -26,15 +25,6 @@ export const WebPanel: FC = (): ReactElement => {
 		event.stopPropagation();
 	};
 
-	const runConfetti = () => {
-		const element = document.getElementsByTagName("confetti-canvas")[0] as HTMLCanvasElement;
-		if (element != null) {
-			element.style.display = "block";
-			const confetti = new Confetti(element);
-			confetti.run(1000);
-		}
-	};
-
 	const onConfigureClicked = () => {
 		setConfigMode(true);
 	};
@@ -55,8 +45,8 @@ export const WebPanel: FC = (): ReactElement => {
 					};
 
 					oldConfiguration.goals
-					.filter(goal => !goal.isComplete)
-					.forEach(goal => newAddonConfiguration.goals.push(goal));
+						.filter(goal => !goal.isComplete)
+						.forEach(goal => newAddonConfiguration.goals.push(goal));
 
 					const endDate = IterationDurationUtils.iterationEndDate(oldConfiguration.iterationStartDate, oldConfiguration.iterationLengthWeeks);
 
@@ -100,7 +90,7 @@ export const WebPanel: FC = (): ReactElement => {
 				resolve();
 			}
 		});
-	}
+	};
 
 	const initializeBoardService = (projectKey: string, boardId: string) => {
 		const datastore = new DatastoreService(projectKey, boardId);
@@ -149,7 +139,6 @@ export const WebPanel: FC = (): ReactElement => {
 	return (
 		<div className="ac-content" onClick={handleClick}>
 			<div className="dialog-wrapper">
-				<canvas className="confetti-canvas" style={{display: "none"}}></canvas>
 				{configurationLoaded && isConfigMode && boardService &&
 					<EditView boardService={boardService} onIterationStarted={onIterationStated}/>
 				}
