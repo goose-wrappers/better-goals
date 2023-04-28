@@ -267,15 +267,6 @@ export const EditView: FC<{
 										/>
 									}
 								</div>
-
-								<div style={{marginTop: "auto"}}>
-									<Button appearance={"primary"} onClick={onReadyToStartClicked} isDisabled={showSpinner}>
-										Ready to Start?
-									</Button>
-									<span style={{marginLeft: "1em", visibility: (showSpinner ? "visible" : "hidden")}}>
-										<Spinner></Spinner>
-									</span>
-								</div>
 							</div>
 						}
 					</TabPanel>
@@ -285,14 +276,30 @@ export const EditView: FC<{
 						</div>
 					</TabPanel>
 					<TabPanel>
-						<div style={{marginTop: "1.5em", width: "100%",textAlign: "center",fontSize: "1em"}}>
+						<div style={{marginTop: "1.5em", width: "100%", textAlign: "center", fontSize: "1em"}}>
 							We are adding more configuration options soon! 🎉
 						</div>
 					</TabPanel>
 				</Tabs>
 			</div>
 			<div className="dialog-footer">
-				<BetterGoalsLogo/>
+				<div style={{display: "flex"}}>
+					{addonConfiguration &&
+
+						<div style={{flex: "50%", marginTop: "auto"}}>
+							<Button appearance={"primary"} onClick={onReadyToStartClicked} isDisabled={showSpinner}>
+								Ready to Start?
+							</Button>
+							<span style={{marginLeft: "1em", visibility: (showSpinner ? "visible" : "hidden")}}>
+								<Spinner></Spinner>
+							</span>
+						</div>
+					}
+
+					<div style={{flex: "50%"}}>
+						<BetterGoalsLogo/>
+					</div>
+				</div>
 			</div>
 		</div>
 	);
