@@ -27,7 +27,7 @@ export class ProjectProperties {
 		return new Promise((resolve, reject) => {
 			AtlassianClient.request({
 				url: `/rest/api/3/project/${this.projectKey}/properties/${name}`,
-			}).then((response: any) => {
+			}).then((response: AtlassianResponse) => {
 				const json = JSON.parse(response.body);
 				resolve(json.value);
 			}).catch(reject);

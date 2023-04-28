@@ -4,7 +4,7 @@ import {AtlassianResponse} from "./atlassian-response";
 declare global {
 	interface Window {
 		AP: {
-			getLocation(callback: any): void;
+			getLocation(callback: (url: string) => void): void;
 			request(options: AtlassianRequest): Promise<AtlassianResponse>;
 			resize(width: string, height: string): void;
 			dialog: {

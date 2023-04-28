@@ -41,18 +41,18 @@ export const IterationView: FC<{
 		setShowFlag(false);
 	};
 
-	const iterationStarted = () => {
-		const now = new Date().toISOString();
-		return now >= addonConfiguration!.iterationStartDate;
-	};
-
 	const onConfigure = () => {
-		if (iterationStarted()) {
-			// already started with this iteration, present an alert
-			setShowFlag(true);
-		} else {
-			// starts in the future, then go directly into edit mode
-			onConfigureClicked();
+		if (addonConfiguration) {
+			const now = new Date().toISOString();
+			const iterationStarted = now >= addonConfiguration.iterationStartDate;
+
+			if (iterationStarted) {
+				// already started with this iteration, present an alert
+				setShowFlag(true);
+			} else {
+				// starts in the future, then go directly into edit mode
+				onConfigureClicked();
+			}
 		}
 	};
 
@@ -138,11 +138,11 @@ export const IterationView: FC<{
 			<Blanket isTinted={true} onBlanketClicked={onBlanketClicked}></Blanket>
 			<div style={{position: "absolute", width: "100%"}}>
 				<Flag icon={<WarningIcon primaryColor={token("color.icon.information", Y300)} label="Warning"/>} id="1" appearance="normal" title="Oh Oh!"
-				      description="Are you sure you want to edit your ongoing iteration?"
-				      actions={[
-					      {content: "Yes!", onClick: onConfigureClicked},
-					      {content: "Not now", onClick: onCloseFlag},
-				      ]}
+					description="Are you sure you want to edit your ongoing iteration?"
+					actions={[
+						{content: "Yes!", onClick: onConfigureClicked},
+						{content: "Not now", onClick: onCloseFlag},
+					]}
 				/>
 			</div>
 		</>;
@@ -287,8 +287,8 @@ export const IterationView: FC<{
 									<div style={{flex: 1}}>
 										<div style={{width: "75%", margin: "auto", textAlign: "center", marginTop: "2em", paddingBottom: "1em"}}>
 											<DaysLeft iteration_length_weeks={addonConfiguration.iterationLengthWeeks}
-												  iteration_start_date={addonConfiguration.iterationStartDate}
-												  onNewIteration={onStartNewIterationClicked}/>
+												iteration_start_date={addonConfiguration.iterationStartDate}
+												onNewIteration={onStartNewIterationClicked}/>
 										</div>
 
 										{/* start new iteration button when all tasks complete */}

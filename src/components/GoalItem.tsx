@@ -7,14 +7,15 @@ export const GoalItem: FC<{
 	onChange: (id: string, isComplete: boolean) => void;
 }> = ({goal, onChange}): ReactElement => {
 
-	const handleCheckboxClicked = (goal: Goal, checked: boolean) => {
+	const onCheckboxClicked = (e: any) => {
+		const checked = e.target.checked;
 		goal.isComplete = checked;
 		onChange(goal.id, checked);
 	};
 
 	return (
 		<div className="trimmed-checkbox">
-			<Checkbox name={goal.label} label={goal.label} defaultChecked={goal.isComplete} onClick={(e: any) => handleCheckboxClicked(goal, e.target.checked)} size="large"/>
+			<Checkbox name={goal.label} label={goal.label} defaultChecked={goal.isComplete} onClick={onCheckboxClicked} size="large"/>
 		</div>
 	);
 };
