@@ -124,8 +124,8 @@ export const IterationView: FC<{
 						<div style={{display: "table-cell", verticalAlign: "middle"}}>
 							<Settings label="Configure" primaryColor="#333"/>
 						</div>
-						<div style={{display: "table-cell", verticalAlign: "middle", paddingLeft: "0.5em"}}>
-							<a style={{cursor: "pointer", textDecoration: "none", color: "#333"}} onClick={onConfigure}>Configure</a>
+						<div style={{display: "table-cell", verticalAlign: "middle", paddingLeft: "0.1em", paddingBottom: "0.19em"}}>
+							<a style={{cursor: "pointer", textDecoration: "none", color: "#333"}} onClick={onConfigure}>Edit Goals</a>
 						</div>
 					</div>
 				</div>
