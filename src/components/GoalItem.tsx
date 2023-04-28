@@ -16,7 +16,7 @@ export const GoalItem: FC<{
 
 	return (
 		<div className="trimmed-checkbox">
-			<Checkbox name={goal.label} label={goal.label} defaultChecked={goal.isComplete} onClick={(e: any) => handleCheckboxClicked(goal, e.target.checked)} />
+			<Checkbox name={goal.label} label={goal.label} defaultChecked={goal.isComplete} onClick={(e: any) => handleCheckboxClicked(goal, e.target.checked)} size="large"/>
 		</div>
 	);
 };

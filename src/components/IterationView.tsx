@@ -275,7 +275,7 @@ export const IterationView: FC<{
 						{addonConfiguration &&
 							<>
 								<div style={{marginTop: "1.5em", width: "100%", display: "flex", flexDirection: "column", height: "100%"}}>
-									<div style={{flex: 1}}>
+									<div style={{flex: 1,fontSize:"1.2em"}}>
 										<GoalList list={addonConfiguration.goals} onChange={onGoalListChanged}/>
 									</div>
 

@@ -285,8 +285,8 @@ export const EditView: FC<{
 						</div>
 					</TabPanel>
 					<TabPanel>
-						<div style={{marginTop: "1.5em", width: "100%"}}>
-							Here be dragons
+						<div style={{marginTop: "1.5em", width: "100%",textAlign: "center",fontSize: "1em"}}>
+							We are adding more configuration options soon! 🎉
 						</div>
 					</TabPanel>
 				</Tabs>

@@ -24,7 +24,7 @@ export const HistoryTabPanel: FC<{
 
 			{history && history.iterations.length == 0 &&
 				<>
-					Waiting for your first completed iteration
+					You will see all your history here after your first successfully completed iteration!🥳🚀
 				</>
 			}
 
