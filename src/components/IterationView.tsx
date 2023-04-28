@@ -114,30 +114,35 @@ export const IterationView: FC<{
 	};
 
 	const IterationViewFooter = () => {
-		return <>
-			<div style={{float: "right"}}>
-				<div style={{display: "table"}}>
-					<div style={{display: "table-cell", verticalAlign: "middle"}}>
-						<Settings label="Configure" primaryColor="#333"/>
-					</div>
-					<div style={{display: "table-cell", verticalAlign: "middle", paddingLeft: "0.5em"}}>
-						<a style={{cursor: "pointer", textDecoration: "none", color: "#333"}} onClick={onConfigure}>Configure</a>
+		return (<>
+			<div style={{display: "flex", flexDirection: "row"}}>
+				<div style={{flex: "50%"}}>
+					{!showStartNewIteration && showTips && <TipView daysLeft={4}/>}
+				</div>
+				<div style={{flex: "25%", marginTop: "auto"}}>
+					<div style={{display: "table", marginLeft: "auto", marginRight: "0"}}>
+						<div style={{display: "table-cell", verticalAlign: "middle"}}>
+							<Settings label="Configure" primaryColor="#333"/>
+						</div>
+						<div style={{display: "table-cell", verticalAlign: "middle", paddingLeft: "0.5em"}}>
+							<a style={{cursor: "pointer", textDecoration: "none", color: "#333"}} onClick={onConfigure}>Configure</a>
+						</div>
 					</div>
 				</div>
 			</div>
-			<br style={{clear: "both"}}/>
-		</>;
+		</>);
 	};
 
 	const EditIterationFlag = () => {
 		return <>
 			<Blanket isTinted={true} onBlanketClicked={onBlanketClicked}></Blanket>
 			<div style={{position: "absolute", width: "100%"}}>
-				<Flag icon={<WarningIcon primaryColor={token("color.icon.information", Y300)} label="Warning"/>} id="1" appearance="normal" title="Oh Oh!" description="Are you sure you want to edit your ongoing iteration?"
-					actions={[
-						{content: "Yes!", onClick: onConfigureClicked},
-						{content: "Not now", onClick: onCloseFlag},
-					]}
+				<Flag icon={<WarningIcon primaryColor={token("color.icon.information", Y300)} label="Warning"/>} id="1" appearance="normal" title="Oh Oh!"
+				      description="Are you sure you want to edit your ongoing iteration?"
+				      actions={[
+					      {content: "Yes!", onClick: onConfigureClicked},
+					      {content: "Not now", onClick: onCloseFlag},
+				      ]}
 				/>
 			</div>
 		</>;
@@ -275,15 +280,15 @@ export const IterationView: FC<{
 						{addonConfiguration &&
 							<>
 								<div style={{marginTop: "1.5em", width: "100%", display: "flex", flexDirection: "column", height: "100%"}}>
-									<div style={{flex: 1,fontSize:"1.2em"}}>
+									<div style={{flex: 1, fontSize: "1.2em"}}>
 										<GoalList list={addonConfiguration.goals} onChange={onGoalListChanged}/>
 									</div>
 
 									<div style={{flex: 1}}>
 										<div style={{width: "75%", margin: "auto", textAlign: "center", marginTop: "2em", paddingBottom: "1em"}}>
 											<DaysLeft iteration_length_weeks={addonConfiguration.iterationLengthWeeks}
-												iteration_start_date={addonConfiguration.iterationStartDate}
-												onNewIteration={onStartNewIterationClicked}/>
+												  iteration_start_date={addonConfiguration.iterationStartDate}
+												  onNewIteration={onStartNewIterationClicked}/>
 										</div>
 
 										{/* start new iteration button when all tasks complete */}
@@ -300,7 +305,6 @@ export const IterationView: FC<{
 				</div>
 				<div className="dialog-footer">
 					<IterationViewFooter/>
-					{!showStartNewIteration && showTips && <TipView daysLeft={4}/>}
 				</div>
 			</div>
 		</div>

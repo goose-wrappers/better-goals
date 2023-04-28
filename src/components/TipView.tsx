@@ -19,7 +19,7 @@ export const TipView: FC<{
 	}, []);
 
 	return (
-		<div className="tip-view" style={{width: "75%"}}>
+		<div className="tip-view">
 			{message}
 		</div>
 	);
