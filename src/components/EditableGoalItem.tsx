@@ -8,13 +8,12 @@ import {MyTextFieldWithEmoji} from "./MyTextFieldWithEmoji";
 
 export const EditableGoalItem: FC<{
 	goal: Goal;
-	onChange: (id: string, isComplete: boolean) => void;
 	onDelete: (id: string) => void;
-}> = ({goal, onChange, onDelete}): ReactElement => {
+}> = ({goal, onDelete}): ReactElement => {
 
 	const [isInlineEdit, setIsInlineEdit] = useState(false);
 
-	const handleCheckboxClicked = (goal: Goal, e: any, checked: boolean) => {
+	const handleCheckboxClicked = (goal: Goal, e: any) => {
 		// items cannot be checked here
 		e.target.checked = false;
 		e.target.blur();
@@ -48,7 +47,7 @@ export const EditableGoalItem: FC<{
 					<div style={{float: "left", width: "50%"}} className="editable-goal-item">
 						{!isInlineEdit &&
 							<div className="trimmed-checkbox" title={goal.label}>
-								<Checkbox name={goal.label} label={goal.label} defaultChecked={goal.isComplete} onClick={(e: any) => handleCheckboxClicked(goal, e, e.target.checked)}/>
+								<Checkbox name={goal.label} label={goal.label} defaultChecked={goal.isComplete} onClick={(e: any) => handleCheckboxClicked(goal, e)}/>
 							</div>
 						}
 

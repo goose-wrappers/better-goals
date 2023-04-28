@@ -1,7 +1,6 @@
 import React, {FC, Fragment, ReactElement, useState} from "react";
 import {Field} from "@atlaskit/form";
 import Checkbox from "@atlaskit/checkbox";
-import {InlineEditableTextfield} from "@atlaskit/inline-edit";
 import DragHandlerIcon from "@atlaskit/icon/glyph/drag-handler";
 import {MyTextFieldWithEmoji} from "./MyTextFieldWithEmoji";
 
@@ -13,10 +12,6 @@ export const AddAnotherGoal: FC<{
 
 	const onLabelClicked = () => {
 		setShowEditField(true);
-	};
-
-	const onEditCancelled = () => {
-		setShowEditField(false);
 	};
 
 	const onConfirm = (label: string) => {

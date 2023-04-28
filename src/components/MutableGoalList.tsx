@@ -36,10 +36,6 @@ export const MutableGoalList: FC<{
 		setShowAddAnotherGoal(updated.length < maxItems);
 	};
 
-	const onChange = () => {
-		// ignored
-	};
-
 	const onDragEnd = (result: DropResult) => {
 		if (result.destination) {
 			const fromIndex = result.source.index;
@@ -73,7 +69,7 @@ export const MutableGoalList: FC<{
 										<div ref={provided.innerRef}
 											{...provided.draggableProps}
 											{...provided.dragHandleProps}>
-											<EditableGoalItem key={goal.id} goal={goal} onChange={onChange} onDelete={onDeleteGoal}/>
+											<EditableGoalItem key={goal.id} goal={goal} onDelete={onDeleteGoal}/>
 										</div>
 									)}
 								</Draggable>

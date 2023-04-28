@@ -1,12 +1,12 @@
 import {AtlassianClient} from "./atlassian-client";
-import {LoggerService} from "./logger-service";
+import {AtlassianResponse} from "./atlassian-response";
 
 export class ProjectProperties {
 
 	public constructor(private projectKey: string) {
 	}
 
-	public deleteProperty(name: string): Promise<any> {
+	public deleteProperty(name: string): Promise<AtlassianResponse> {
 		return AtlassianClient.request({
 			url: `/rest/api/3/project/${this.projectKey}/properties/${name}`,
 			type: "DELETE",
@@ -14,7 +14,7 @@ export class ProjectProperties {
 		});
 	}
 
-	public putProperty(name: string, data: object): Promise<any> {
+	public putProperty(name: string, data: object): Promise<AtlassianResponse> {
 		return AtlassianClient.request({
 			url: `/rest/api/3/project/${this.projectKey}/properties/${name}`,
 			type: "PUT",

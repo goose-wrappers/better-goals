@@ -44,12 +44,13 @@ export const EditView: FC<{
 	const onDateChanged = (value: string) => {
 		LoggerService.log(`onDateChanged: ${value}`);
 		setIsInvalidDate(false);
-
 		setDatePickerVisible(false);
 
-		const newConfiguration: AddonConfiguration = {...addonConfiguration!};
-		newConfiguration.iterationStartDate = value;
-		setAddonConfiguration(newConfiguration);
+		if (addonConfiguration) {
+			const newConfiguration: AddonConfiguration = {...addonConfiguration};
+			newConfiguration.iterationStartDate = value;
+			setAddonConfiguration(newConfiguration);
+		}
 	};
 
 	const handleListChanged = (goals: Array<Goal>) => {

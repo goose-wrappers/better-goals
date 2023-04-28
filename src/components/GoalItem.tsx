@@ -1,8 +1,6 @@
-import React, {FC, Fragment, MouseEventHandler, ReactElement} from "react";
+import React, {FC, ReactElement} from "react";
 import {Goal} from "../models/goal";
-import {Field} from "@atlaskit/form";
 import Checkbox from "@atlaskit/checkbox";
-import EditorRemoveIcon from "@atlaskit/icon/glyph/editor/remove";
 
 export const GoalItem: FC<{
 	goal: Goal;
