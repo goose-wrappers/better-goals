@@ -2,6 +2,7 @@ import {DatastoreService} from "./datastore-service";
 import {AddonConfiguration} from "../models/addon-configuration";
 import {GoalsHistory} from "../models/goals-history";
 import {DateUtils} from "./date-utils";
+import {AtlassianResponse} from "./atlassian-response";
 
 export class BoardService {
 
@@ -31,7 +32,7 @@ export class BoardService {
 		});
 	}
 
-	public saveGoalHistory(goalHistory: GoalsHistory): Promise<GoalsHistory> {
+	public saveGoalHistory(goalHistory: GoalsHistory): Promise<AtlassianResponse> {
 		return this.datastoreService.saveGoalHistory(goalHistory);
 	}
 
@@ -43,7 +44,7 @@ export class BoardService {
 		});
 	}
 
-	public saveConfiguration(configuration: AddonConfiguration): Promise<void> {
+	public saveConfiguration(configuration: AddonConfiguration): Promise<AtlassianResponse> {
 		return this.datastoreService.saveConfiguration(configuration);
 	}
 }
