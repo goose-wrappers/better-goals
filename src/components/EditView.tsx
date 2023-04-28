@@ -1,4 +1,4 @@
-import React, {FC, ReactElement, useEffect, useRef, useState} from "react";
+import React, {FC, ReactElement, useEffect, useState} from "react";
 import Tabs, {Tab, TabList, TabPanel} from "@atlaskit/tabs";
 import {MutableGoalList} from "./MutableGoalList";
 import Button from "@atlaskit/button";
@@ -8,13 +8,11 @@ import {AtlassianClient} from "../services/atlassian-client";
 import {AddonConfiguration} from "../models/addon-configuration";
 import {BoardService} from "../services/board-service";
 import {LoggerService} from "../services/logger-service";
-import Select from "@atlaskit/select";
-import {DatePicker} from "@atlaskit/datetime-picker";
 import Spinner from "@atlaskit/spinner";
 import {HistoryTabPanel} from "./HistoryTabPanel";
 import {IterationDurationUtils} from "../services/iteration-duration-utils";
-import Blanket from "@atlaskit/blanket";
-import {ActionMeta, OnChangeValue, OptionsOrGroups} from "react-select/dist/declarations/src/types";
+import {SelectWithBlanket} from "./SelectWithBlanket";
+import {DatePickerWithBlanket} from "./DatePickerWithBlanket";
 
 export const EditView: FC<{
 	boardService: BoardService;
@@ -73,80 +71,6 @@ export const EditView: FC<{
 		return true;
 	};
 
-	const SelectWithBlanket: FC<{
-		placeholder: string;
-		options: any;
-		defaultValue: any;
-		onChange: (newValue: any) => void;
-	}> = ({placeholder, options, defaultValue, onChange}) => {
-		return (
-			<>
-				<Blanket isTinted={true} onBlanketClicked={blankedClicked}/>
-
-				<Select
-					/* rise above blanket */
-					styles={{
-						control: (base) => ({
-							...base,
-							display: "none",
-						}),
-						menu: (base) => ({
-							...base,
-							zIndex: "999",
-							bottom: "-7em",
-							left: "24em",
-							width: "50%",
-							cursor: "pointer",
-						})
-					}}
-
-					menuPlacement="top"
-					onChange={onChange}
-					placeholder={placeholder}
-					menuIsOpen={true}
-					defaultValue={defaultValue}
-					options={options}
-				/>
-			</>
-		);
-	};
-
-	const DatePickerWithBlanket: FC<{
-		minDate: string;
-		defaultValue: string;
-		onChange: (value: string) => void;
-	}> = ({minDate, defaultValue, onChange}) => {
-		return (
-			<>
-				<Blanket isTinted={true} onBlanketClicked={blankedClicked}/>
-				<DatePicker
-
-					selectProps={{
-						menuPortalTarget: document.body,
-						styles: {
-							control: (base: any) => ({
-								...base,
-								display: "none",
-							}),
-							menuPortal: (base: any) => ({
-								...base,
-								top: "2em",
-								left: "24em",
-								zIndex: 9999,
-							}),
-						},
-					}}
-
-					spacing="compact"
-					isOpen={true}
-					minDate={minDate}
-					defaultValue={defaultValue}
-					onChange={onChange}
-					hideIcon={true}
-				/>
-			</>
-		);
-	};
 
 	const onReadyToStartClicked = () => {
 		if (addonConfiguration) {
@@ -183,8 +107,9 @@ export const EditView: FC<{
 		setDatePickerVisible(true);
 	};
 
-	const blankedClicked = () => {
+	const onBlanketClicked = () => {
 		setDatePickerVisible(false);
+		setLengthPickerVisible(false);
 	};
 
 	useEffect(() => {
@@ -247,6 +172,7 @@ export const EditView: FC<{
 											minDate={minimumDateInPicker}
 											defaultValue={addonConfiguration.iterationStartDate}
 											onChange={(value) => onDateChanged(value)}
+											onBlankedClicked={onBlanketClicked}
 										/>
 									}
 
@@ -264,6 +190,7 @@ export const EditView: FC<{
 												{label: "4 Weeks", value: 4},
 											]}
 											onChange={onIterationLengthChanged}
+											onBlanketClicked={onBlanketClicked}
 										/>
 									}
 								</div>
