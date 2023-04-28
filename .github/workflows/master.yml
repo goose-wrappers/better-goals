@@ -8,6 +8,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      BETTER_GOALS_s3: delete-me-bucket-2023-04-27
+      LAMBDA_FUNCTION_NAME: better-goals
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -21,7 +24,11 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-      - run: aws s3 cp --recursive --acl public-read build/ s3://better-goals-jira-addon
-      - run: zip function.zip index.js atlassian-connect.json build/index.html
-      - run: aws lambda update-function-code --function-name better-goals --zip-file fileb://function.zip
-      - run: echo "You can now happily install the addon with this url https://5lnp2zlhsleucqwrk6uya4bt540bhvmk.lambda-url.us-east-1.on.aws/atlassian-connect.json"
+      - name: Upload static assets to S3
+        run: |
+          aws s3 cp --recursive --acl public-read build/ s3://${{ env.BETTER_GOALS_S3}}
+      - name: Upload atlassian-connect handler to lambda
+        run: |
+          zip -q function.zip index.js atlassian-connect.json build/index.html
+          aws lambda update-function-code --function-name ${{env.LAMBDA_FUNCTION_NAME}} --zip-file fileb://function.zip
+
