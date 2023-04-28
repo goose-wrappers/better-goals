@@ -14,8 +14,8 @@ export const TipView: FC<{
 		if (daysLeft > 0) {
 			setMessage(
 				<>
-					How to facilitate effective discussions around goals during standup: <a href="https://medium.com/shortlink" target="_blank"
-						rel="noreferrer noopener">https://medium.com/shortlink</a>
+					How to facilitate effective discussions around your goals during standup: <a href="https://medium.com/@kristof.muhi.goose" target="_blank"
+						rel="noreferrer noopener">https://medium.com/better-goals</a>
 				</>
 			);
 		}
