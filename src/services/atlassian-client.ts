@@ -1,13 +1,15 @@
 import {AtlassianRequest} from "./atlassian-request";
 import {AtlassianResponse} from "./atlassian-response";
 
-interface WindowWithAtlassianClient {
-	AP: {
-		getLocation(callback: any): void;
-		request(options: AtlassianRequest): Promise<AtlassianResponse>;
-		resize(width: string, height: string): void;
-		dialog: {
-			close(): void;
+declare global {
+	interface Window {
+		AP: {
+			getLocation(callback: any): void;
+			request(options: AtlassianRequest): Promise<AtlassianResponse>;
+			resize(width: string, height: string): void;
+			dialog: {
+				close(): void;
+			}
 		}
 	}
 }
@@ -15,15 +17,15 @@ interface WindowWithAtlassianClient {
 export class AtlassianClient {
 
 	static request(options: AtlassianRequest): Promise<AtlassianResponse> {
-		return (<WindowWithAtlassianClient>(window as any)).AP.request(options);
+		return window.AP.request(options);
 	}
 
 	static resize(width: string, height: string) {
-		(<WindowWithAtlassianClient>(window as any)).AP.resize(width, height);
+		window.AP.resize(width, height);
 	}
 
 	static closeDialog() {
-		(<WindowWithAtlassianClient>(window as any)).AP.dialog.close();
+		window.AP.dialog.close();
 	}
 
 	static resizeToContent() {
@@ -35,7 +37,7 @@ export class AtlassianClient {
 
 	static getLocation(): Promise<string> {
 		return new Promise((resolve) => {
-			(<WindowWithAtlassianClient>(window as any)).AP.getLocation((url: string) => {
+			window.AP.getLocation((url: string) => {
 				resolve(url);
 			});
 		});
