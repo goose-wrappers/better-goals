@@ -5,12 +5,13 @@ on:
     branches:
       - main
 
+env:
+  BETTER_GOALS_s3: delete-me-bucket-2023-04-27
+  LAMBDA_FUNCTION_NAME: better-goals
+
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      BETTER_GOALS_s3: delete-me-bucket-2023-04-27
-      LAMBDA_FUNCTION_NAME: better-goals
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
