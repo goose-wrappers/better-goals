@@ -1,6 +1,14 @@
 import {AtlassianClient} from "./atlassian-client";
 import {AtlassianResponse} from "./atlassian-response";
 
+export interface AddonPropertiesResult
+{
+	keys: Array<{
+		key: string;
+		self: string;
+	}>;
+}
+
 export class AddonProperties {
 
 	public constructor(private addonKey: string) {
@@ -20,6 +28,17 @@ export class AddonProperties {
 			type: "PUT",
 			contentType: "application/json",
 			data: JSON.stringify(data)
+		});
+	}
+
+	public getProperties(): Promise<AddonPropertiesResult> {
+		return new Promise((resolve, reject) => {
+			AtlassianClient.request({
+				url: `/rest/atlassian-connect/1/addons/${this.addonKey}/properties/`,
+			}).then((response: AtlassianResponse) => {
+				const json = JSON.parse(response.body);
+				resolve(json);
+			}).catch(reject);
 		});
 	}
 

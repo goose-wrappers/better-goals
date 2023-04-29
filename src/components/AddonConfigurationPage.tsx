@@ -174,9 +174,14 @@ export const AddonConfigurationPage: FC = (): ReactElement => {
 				// see if we're enabled by default. if property exists, then we're disabled.
 				// it's implemented this way, so it's opt-out and not opt-in
 				const addonProperties = new AddonProperties(matches[1]);
-				addonProperties.getProperty(ADDON_KEY_BETTER_GOALS_DISABLED)
-					.then(() => setIsBetterGoalsEnabled(false))
-					.catch(() => setIsBetterGoalsEnabled(true));
+				addonProperties.getProperties()
+					.then(result => {
+						const found = result.keys
+							.map(k => k.key)
+							.filter(key => key === ADDON_KEY_BETTER_GOALS_DISABLED)
+							.length > 0;
+						setIsBetterGoalsEnabled(!found);
+					});
 
 				if (address) {
 					// disabled for the time being
@@ -242,6 +247,16 @@ export const AddonConfigurationPage: FC = (): ReactElement => {
 										}
 
 										<Toggle id="toggle-large" size="large" isChecked={isBetterGoalsEnabled} onChange={onBetterGoalsEnabledChange}/>
+									</div>
+
+									<div style={{marginTop: "32em"}}>
+										<div style={{fontWeight: "bold"}}>
+											Do you want to disable it per project base?
+										</div>
+										<div>
+											Let us know here: <a href="mailto:support@goosewrappers.dev?subject=I+want+to+disable+per+project+please"
+											target="_blank">support@goosewrappers.dev</a>
+										</div>
 									</div>
 
 									{false && isBetterGoalsEnabled &&
