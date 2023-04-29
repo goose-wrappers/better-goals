@@ -34,7 +34,7 @@
 			{
 				"key": "better-goals-addon-configuration",
 				"name": {
-					"value": "Better Goals \uD83C\uDFAF"
+					"value": "General Settings"
 				},
 				"url": "/addon-configuration",
 				"location": "admin_plugins_menu/better-goals-admin-section",
