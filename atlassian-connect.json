@@ -21,23 +21,30 @@
 	],
 	"apiVersion": 1,
 	"modules": {
-		"generalPages": [
+		"webSections": [
 			{
-				"key": "global-configuration",
-				"location": "system.top.navigation.bar",
+				"key": "better-goals-admin-section",
+				"location": "admin_plugins_menu",
+				"name": {
+					"value": "Better Goals"
+				}
+			}
+		],
+		"adminPages": [
+			{
+				"key": "better-goals-addon-configuration",
 				"name": {
 					"value": "Better Goals \uD83C\uDFAF"
 				},
-				"url": "/global-configuration"
+				"url": "/addon-configuration",
+				"location": "admin_plugins_menu/better-goals-admin-section",
+				"conditions": [
+					{
+						"condition": "user_is_admin"
+					}
+				]
 			}
 		],
-		"configurePage": {
-			"key": "better-goals-configuration",
-			"name": {
-				"value": "Better Goals"
-			},
-			"url": "/global-configuration"
-		},
 		"webItems": [
 			{
 				"key": "board-links",
@@ -60,25 +67,12 @@
 						"condition": "user_is_logged_in"
 					},
 					{
-						"or": [
-							{
-								"condition": "entity_property_equal_to",
-								"params": {
-									"entity": "project",
-									"propertyKey": "better-goals-admin-settings",
-									"objectName": "isVisible",
-									"value": "true"
-								}
-							},
-							{
-								"condition": "entity_property_exists",
-								"invert": true,
-								"params": {
-									"entity": "project",
-									"propertyKey": "better-goals-admin-settings"
-								}
-							}
-						]
+						"condition": "entity_property_exists",
+						"invert": true,
+						"params": {
+							"entity": "addon",
+							"propertyKey": "better-goals-disabled"
+						}
 					}
 				]
 			}

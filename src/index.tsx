@@ -7,7 +7,7 @@ import {ErrorPage} from "./components/ErrorPage";
 import {WebPanel} from "./components/WebPanel";
 import {ConfigurationPage} from "./components/ConfigurationPage";
 import {IndexPage} from "./components/IndexPage";
-import {GlobalConfigurationPage} from "./components/GlobalConfigurationPage";
+import {AddonConfigurationPage} from "./components/AddonConfigurationPage";
 
 const router = createBrowserRouter([
 	{
@@ -21,8 +21,8 @@ const router = createBrowserRouter([
 		errorElement: <ErrorPage/>,
 	},
 	{
-		path: "/global-configuration",
-		element: <GlobalConfigurationPage/>,
+		path: "/addon-configuration",
+		element: <AddonConfigurationPage/>,
 		errorElement: <ErrorPage/>
 	},
 	{
