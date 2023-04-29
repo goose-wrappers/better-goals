@@ -11,7 +11,6 @@ import Flag from "@atlaskit/flag";
 import Blanket from "@atlaskit/blanket";
 import WarningIcon from "@atlaskit/icon/glyph/warning";
 import {token} from "@atlaskit/tokens";
-import {Y300} from "@atlaskit/theme/colors";
 import {LoggerService} from "../services/logger-service";
 import {AddonProperties} from "../services/addon-properties";
 
@@ -179,7 +178,10 @@ export const AddonConfigurationPage: FC = (): ReactElement => {
 					.then(() => setIsBetterGoalsEnabled(false))
 					.catch(() => setIsBetterGoalsEnabled(true));
 
-				// refreshProjectList();
+				if (address) {
+					// disabled for the time being
+					refreshProjectList();
+				}
 				setIsLoadingDone(true);
 			}
 		});
