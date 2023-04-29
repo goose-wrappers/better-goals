@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      BETTER_GOALS_s3: "delete-me-bucket-2023-04-27"
+      BETTER_GOALS_S3: "delete-me-bucket-2023-04-27"
       LAMBDA_FUNCTION_NAME: "better-goals"
     steps:
       - uses: actions/checkout@v3
@@ -26,8 +26,6 @@ jobs:
           aws-region: us-east-1
       - name: Upload static assets to S3
         run: |
-          env | grep BETTER
-          echo $BETTER_GOALS_S3
           aws s3 cp --recursive --acl public-read build/ "s3://${BETTER_GOALS_S3}"
       - name: Upload atlassian-connect handler to lambda
         run: |
