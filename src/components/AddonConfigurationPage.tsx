@@ -255,7 +255,7 @@ export const AddonConfigurationPage: FC = (): ReactElement => {
 										</div>
 										<div>
 											Let us know here: <a href="mailto:support@goosewrappers.dev?subject=I+want+to+disable+per+project+please"
-											target="_blank">support@goosewrappers.dev</a>
+												target="_blank" rel="noreferrer">support@goosewrappers.dev</a>
 										</div>
 									</div>
 
