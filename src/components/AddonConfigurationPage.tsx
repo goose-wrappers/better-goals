@@ -90,7 +90,7 @@ export const AddonConfigurationPage: FC = (): ReactElement => {
 
 		const addonProperties = new AddonProperties(addonKey);
 		addonProperties.putProperty(ADDON_KEY_BETTER_GOALS_DISABLED, true).then();
-	}
+	};
 
 	const onBetterGoalsEnabledChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 
