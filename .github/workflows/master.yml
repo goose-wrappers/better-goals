@@ -32,6 +32,6 @@ jobs:
         run: |
           zip -q function.zip index.js atlassian-connect.json build/index.html
           echo aws lambda create-function --runtime nodejs16.x --handler index.handler --function-name "$LAMBDA_FUNCTION_NAME" --role "$LAMBDA_ROLE" --zip-file fileb://function.zip
-          aws lambda create-function-url-config --function-name "$LAMBDA_FUNCTION_NAME" --auth-type NONE
+          echo aws lambda create-function-url-config --function-name "$LAMBDA_FUNCTION_NAME" --auth-type NONE
           aws lambda update-function-code --function-name "$LAMBDA_FUNCTION_NAME" --zip-file fileb://function.zip
 
