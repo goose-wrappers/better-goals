@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      BETTER_GOALS_S3: "delete-me-bucket-2023-04-27"
+      BETTER_GOALS_S3: "better-goals-cdn"
       LAMBDA_ROLE: "arn:aws:iam::819351115289:role/iam_for_lambda"
       LAMBDA_FUNCTION_NAME: "better-goals"
     steps:
