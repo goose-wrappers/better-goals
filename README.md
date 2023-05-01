@@ -3,6 +3,12 @@
 Better Goals (noun): a JIRA add-on to be a guiding north-star for product manager and team leaders; to commit to a 
 short list of goals and to deliver on those goals.
 
+As a team working on any fast-paced environment, you may often find yourselves drowning in JIRA tickets. It's easy to lose sight of the bigger picture – the actual business, engineering, or product goals that matter most. That's where Better Goals comes in.
+
+Better Goals is a powerful JIRA Marketplace app designed to help teams align their work with measurable outcomes, ensuring that they stay focused on the right measurable objectives. Our app aims to make your North Star visible and accessible, so your team can stay on track and adapt quickly to new information, datapoint or priority emerging. 
+
+Availble: https://marketplace.atlassian.com/apps/1231053/better-goals-for-kanban-boards
+
 ##### Development
 
 To get started with local development of this add-on, first clone this git repo and run the following.
