@@ -23,5 +23,10 @@ exports.handler = async function (event, context) {
 		};
 	}
 
-	return "A5=>" + context.logStreamName;
+	return {
+		statusCode: 302,
+		headers: {
+			location: "/atlassian-connect.json",
+		},
+	};
 }
