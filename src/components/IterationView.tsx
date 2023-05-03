@@ -32,6 +32,7 @@ export const IterationView: FC<{
 	const [showTips, setShowTips] = useState(false);
 	const [showStartNewIteration, setShowStartNewIteration] = useState(false);
 	const [showFirstIterationCongrats, setShowFirstIterationCongrats] = useState(false);
+	const [showConfetti, setShowConfetti] = useState(false);
 
 	const handleCloseDialog = () => {
 		AtlassianClient.closeDialog();
@@ -42,6 +43,8 @@ export const IterationView: FC<{
 	};
 
 	const onConfigure = () => {
+		setShowConfetti(false);
+
 		if (addonConfiguration) {
 			const now = new Date().toISOString();
 			const iterationStarted = now >= addonConfiguration.iterationStartDate;
@@ -78,6 +81,9 @@ export const IterationView: FC<{
 
 			boardService.saveConfiguration(newConfiguration).then();
 		}
+
+		// show confetti animation if new item checked, stop confetti otherwise
+		setShowConfetti(isComplete);
 	};
 
 	useEffect(() => {
@@ -179,8 +185,9 @@ export const IterationView: FC<{
 	};
 
 	const ConfettiGifForList: FC<{
-		list: Array<Goal>
-	}> = ({list}): ReactElement => {
+		list: Array<Goal>;
+		onAnimationEnd: () => void;
+	}> = ({list, onAnimationEnd}): ReactElement => {
 
 		let cones = 0;
 
@@ -200,17 +207,15 @@ export const IterationView: FC<{
 			}
 		}
 
-		const [timeoutId, setTimeoutId] = useState<NodeJS.Timer>();
 		const [visible, setVisible] = useState(true);
 
 		const fadeOut = () => {
 			setVisible(false);
+			onAnimationEnd();
 		};
 
 		useEffect(() => {
-			const id = setTimeout(() => fadeOut(), 3000);
-			setTimeoutId(id);
-
+			const timeoutId = setTimeout(() => fadeOut(), 3000);
 			return () => {
 				clearTimeout(timeoutId);
 			};
@@ -267,8 +272,8 @@ export const IterationView: FC<{
 				<div className="dialog-header">
 					<IterationViewHeader/>
 				</div>
-				{addonConfiguration &&
-					<ConfettiGifForList list={addonConfiguration.goals}/>
+				{addonConfiguration && showConfetti &&
+					<ConfettiGifForList list={addonConfiguration.goals} onAnimationEnd={() => setShowConfetti(false)}/>
 				}
 				<div style={{flex: 1}}>
 					<div style={{height: "100%"}}>
