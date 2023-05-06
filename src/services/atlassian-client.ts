@@ -1,6 +1,10 @@
 import {AtlassianRequest} from "./atlassian-request";
 import {AtlassianResponse} from "./atlassian-response";
 
+interface GetCurrentUserResponse {
+	atlassianAccountId: string;
+}
+
 declare global {
 	interface Window {
 		AP: {
@@ -9,7 +13,8 @@ declare global {
 			resize(width: string, height: string): void;
 			dialog: {
 				close(): void;
-			}
+			};
+			getCurrentUser(callback: (user: GetCurrentUserResponse) => void): void;
 		}
 	}
 }
@@ -33,6 +38,14 @@ export class AtlassianClient {
 		if (el) {
 			this.resize("100%", `${el.clientHeight}px`);
 		}
+	}
+
+	static getCurrentUser(): Promise<string> {
+		return new Promise((resolve) => {
+			window.AP.getCurrentUser(result => {
+				resolve(result.atlassianAccountId);
+			})
+		});
 	}
 
 	static getLocation(): Promise<string> {

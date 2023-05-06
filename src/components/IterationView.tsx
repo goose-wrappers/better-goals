@@ -20,6 +20,7 @@ import {FadeOutFlag} from "./FadeOutFlag";
 import {GoalsHistory} from "../models/goals-history";
 import {Goal} from "../models/goal";
 import CrossIcon from "@atlaskit/icon/glyph/cross";
+import {UserPropertiesService} from "../services/user-properties-service";
 
 export const IterationView: FC<{
 	boardService: BoardService;
@@ -99,12 +100,19 @@ export const IterationView: FC<{
 			setShowTips(true);
 		});
 
-		boardService.getGoalHistory().then((result: GoalsHistory) => {
-			if (result.iterations.length === 0) {
-				setShowFirstIterationCongrats(true);
-				// hack: so we don't re-render this flag on checkbox change
-				setTimeout(() => setShowFirstIterationCongrats(false), 5000);
-			}
+		AtlassianClient.getCurrentUser().then(accountId => {
+			const userService = new UserPropertiesService(accountId);
+			userService.getProperties().then(result => {
+				const keys = result.keys.map(pair => pair.key);
+				LoggerService.log("Received these user properties:", keys);
+				if (!keys.includes("better-goals-first-time")) {
+					setShowFirstIterationCongrats(true);
+					// hack: so we don't re-render this flag on checkbox change
+					setTimeout(() => setShowFirstIterationCongrats(false), 5000);
+
+					userService.putProperty("better-goals-first-time", true).then();
+				}
+			});
 		});
 	}, []);
 
