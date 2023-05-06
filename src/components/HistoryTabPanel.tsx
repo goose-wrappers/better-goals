@@ -29,8 +29,8 @@ export const HistoryTabPanel: FC<{
 			}
 
 			{history && history.iterations.length > 0 &&
-				history.iterations.map(h =>
-					<HistorySection data={h} key={h.startDate}/>
+				history.iterations.map(h => h.goals.length > 0 &&
+					<HistorySection data={h} key={"section_" + h.goals[0].id}/>
 				)
 			}
 		</div>
