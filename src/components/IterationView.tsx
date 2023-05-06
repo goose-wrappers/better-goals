@@ -19,6 +19,7 @@ import {TipView} from "./TipView";
 import {FadeOutFlag} from "./FadeOutFlag";
 import {GoalsHistory} from "../models/goals-history";
 import {Goal} from "../models/goal";
+import CrossIcon from "@atlaskit/icon/glyph/cross";
 
 export const IterationView: FC<{
 	boardService: BoardService;
@@ -112,8 +113,8 @@ export const IterationView: FC<{
 			<div style={{float: "left"}}>
 				<BetterGoalsLogo/>
 			</div>
-			<div style={{float: "right", fontSize: "1.5em"}}>
-				<span style={{cursor: "pointer", color: "black"}} onClick={handleCloseDialog}>&times;</span>
+			<div style={{float: "right", cursor: "pointer"}} onClick={handleCloseDialog}>
+				<CrossIcon label="" />
 			</div>
 			<br style={{clear: "both"}}/>
 		</>;
