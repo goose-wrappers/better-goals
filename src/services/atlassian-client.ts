@@ -44,7 +44,7 @@ export class AtlassianClient {
 		return new Promise((resolve) => {
 			window.AP.getCurrentUser(result => {
 				resolve(result.atlassianAccountId);
-			})
+			});
 		});
 	}
 

@@ -17,7 +17,6 @@ import Spinner from "@atlaskit/spinner";
 import Button from "@atlaskit/button";
 import {TipView} from "./TipView";
 import {FadeOutFlag} from "./FadeOutFlag";
-import {GoalsHistory} from "../models/goals-history";
 import {Goal} from "../models/goal";
 import CrossIcon from "@atlaskit/icon/glyph/cross";
 import {UserPropertiesService} from "../services/user-properties-service";
