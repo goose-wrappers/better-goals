@@ -1,13 +1,6 @@
 import {AtlassianClient} from "./atlassian-client";
 import {AtlassianResponse} from "./atlassian-response";
-
-export interface AddonPropertiesResult
-{
-	keys: Array<{
-		key: string;
-		self: string;
-	}>;
-}
+import {JiraPropertiesResult} from "../models/jira-properties-result";
 
 export class AddonProperties {
 
@@ -31,7 +24,7 @@ export class AddonProperties {
 		});
 	}
 
-	public getProperties(): Promise<AddonPropertiesResult> {
+	public getProperties(): Promise<JiraPropertiesResult> {
 		return new Promise((resolve, reject) => {
 			AtlassianClient.request({
 				url: `/rest/atlassian-connect/1/addons/${this.addonKey}/properties/`,
