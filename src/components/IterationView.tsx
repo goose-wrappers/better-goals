@@ -181,7 +181,7 @@ export const IterationView: FC<{
 
 	const FirstIterationCongratulations = (): ReactElement => {
 		return (
-			<FadeOutFlag title="Congratulations! Enjoy your first iteration 🥳" appearance="success" duration={3000}/>
+			<FadeOutFlag title="Congratulations! Enjoy your first iteration 🥳" appearance="success" duration={4000}/>
 		);
 	};
 
