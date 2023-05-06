@@ -14,7 +14,7 @@ import {IterationDurationUtils} from "../services/iteration-duration-utils";
 import {SelectWithBlanket} from "./SelectWithBlanket";
 import {DatePickerWithBlanket} from "./DatePickerWithBlanket";
 import SectionMessage from "@atlaskit/section-message";
-import CrossIcon from '@atlaskit/icon/glyph/cross'
+import CrossIcon from "@atlaskit/icon/glyph/cross";
 
 export const EditView: FC<{
 	boardService: BoardService;
