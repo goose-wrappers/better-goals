@@ -11,7 +11,9 @@ Better Goals is a powerful JIRA Marketplace app designed to help teams align the
 
 
 
-Availble: https://marketplace.atlassian.com/apps/1231053/better-goals-for-kanban-boards
+Available for install: https://marketplace.atlassian.com/apps/1231053/better-goals-for-kanban-boards
+Figma and our Design is open sourced too:
+https://www.figma.com/file/Ej4ZhlBesbZMwpPTCaNuok/Better-Goals%F0%9F%8E%AF?type=design&node-id=6%3A3429&t=8qTVTPA0OK2Kuq5C-1
 
 ##### Development
 
