@@ -36,7 +36,7 @@ export const AddAnotherGoal: FC<{
 									<DragHandlerIcon label=""/>
 								</div>
 
-								<div style={{float: "left", width: "50%"}} className="editable-goal-item">
+								<div style={{float: "left", width: "calc(100% - 64px)"}}>
 									<div style={{color: "gray", fontStyle: "italic"}}>
 										<Checkbox label="Add another goal" name="Add another goal" onClick={onLabelClicked} testId="add-another-goal-checkbox"/>
 									</div>
@@ -46,7 +46,7 @@ export const AddAnotherGoal: FC<{
 							</>
 						}
 						{showEditField &&
-							<div style={{width: "50%"}}>
+							<div style={{width: "calc(100% - 64px)"}}>
 								<MyTextFieldWithEmoji defaultValue="" onChange={onConfirm}/>
 							</div>
 						}
