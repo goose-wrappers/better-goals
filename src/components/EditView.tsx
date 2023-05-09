@@ -1,4 +1,4 @@
-import React, {FC, ReactElement, useEffect, useState} from "react";
+import React, {FC, ReactElement, useEffect, useRef, useState} from "react";
 import Tabs, {Tab, TabList, TabPanel} from "@atlaskit/tabs";
 import {MutableGoalList} from "./MutableGoalList";
 import Button from "@atlaskit/button";
@@ -118,17 +118,29 @@ export const EditView: FC<{
 	};
 
 	const FirstTipView = () => {
+
+		const ref = useRef<HTMLDivElement>(null);
+
+		const onGotchaClicked = () => {
+			if (ref.current) {
+				ref.current.style.opacity = "0";
+				setTimeout(() => setShowFirstTip(false), 1000);
+			}
+		};
+
 		return (
-			<SectionMessage appearance={"discovery"} title="Tips! 🤔">
-				<ul style={{padding: "0"}}>
-					<li>Keep it short and measurable!</li>
-					<li>Ensure your goals are descriptive!</li>
-					<li>Make sure everybody understand the lingo!</li>
-				</ul>
-				<p>
-					<a href="#" onClick={() => setShowFirstTip(false)}>Gotcha!</a>
-				</p>
-			</SectionMessage>
+			<div ref={ref} style={{transitionDuration: "0.25s"}}>
+				<SectionMessage appearance={"discovery"} title="Tips! 🤔">
+					<ul style={{padding: "0"}}>
+						<li>Keep it short and measurable!</li>
+						<li>Ensure your goals are descriptive!</li>
+						<li>Make sure everybody understand the lingo!</li>
+					</ul>
+					<p>
+						<a href="#" onClick={onGotchaClicked}>Gotcha!</a>
+					</p>
+				</SectionMessage>
+			</div>
 		);
 	};
 
@@ -170,7 +182,7 @@ export const EditView: FC<{
 							<div style={{width: "100%", display: "flex", flexDirection: "column"}}>
 								{showWelcomeToFirstIteration &&
 									<div style={{width: "100%", textAlign: "center", marginTop: "0.66em", fontSize: "1.15em"}}>
-										Welcome to your first iteration! 🚀🎉🥰
+										Welcome to your first iteration! 🚀 🎉 🥰
 									</div>
 								}
 								<div style={{flex: 1, marginTop: "1.25em"}}>
