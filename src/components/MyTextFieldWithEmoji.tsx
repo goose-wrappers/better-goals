@@ -91,7 +91,7 @@ export const MyTextFieldWithEmoji: FC<{
 			/>
 
 			{isEmojiVisible &&
-				<div style={{position: "absolute", zIndex: 100, top: "3em"}} className="emoji-picker">
+				<div style={{position: "fixed", zIndex: 100, top: "5em", right: "2em"}} className="emoji-picker">
 					<EmojiPicker autoFocusSearch={false} onEmojiClick={onEmojiSelected} emojiStyle={EmojiStyle.NATIVE} height="256px" previewConfig={{showPreview: false}} data-testid="emoji-picker"/>
 				</div>
 			}
