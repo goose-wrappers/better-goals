@@ -10,6 +10,7 @@ import {GoalsHistory, GoalsIteration} from "../models/goals-history";
 import {AtlassianClient} from "../services/atlassian-client";
 import {DateUtils} from "../services/date-utils";
 import {IterationDurationUtils} from "../services/iteration-duration-utils";
+import {UserPropertiesService} from "../services/user-properties-service";
 
 export const WebPanel: FC = (): ReactElement => {
 
@@ -81,9 +82,16 @@ export const WebPanel: FC = (): ReactElement => {
 	const handleDebugMode = (datastoreService: DatastoreService): Promise<void> => {
 		return new Promise((resolve) => {
 			if (DEBUG_WIPE_CONFIGURATON) {
-				datastoreService.deleteConfiguration().finally(() => {
-					datastoreService.deleteGoalHistory().finally(() => {
-						resolve();
+				AtlassianClient.getCurrentUser().then(accountId => {
+
+					// remove per-user first-time cookie
+					const userService = new UserPropertiesService(accountId);
+					userService.deleteProperty("better-goals-first-time").then();
+
+					datastoreService.deleteConfiguration().finally(() => {
+						datastoreService.deleteGoalHistory().finally(() => {
+							resolve();
+						});
 					});
 				});
 			} else {

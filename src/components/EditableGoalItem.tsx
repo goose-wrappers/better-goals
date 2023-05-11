@@ -44,7 +44,7 @@ export const EditableGoalItem: FC<{
 						<DragHandlerIcon label=""/>
 					</div>
 
-					<div style={{float: "left", width: "50%"}} className="editable-goal-item">
+					<div style={{float: "left", width: "calc(100% - 64px)"}} className="editable-goal-item">
 						{!isInlineEdit &&
 							<div className="trimmed-checkbox" title={goal.label}>
 								<Checkbox name={goal.label} label={goal.label} defaultChecked={goal.isComplete} onClick={(e: any) => handleCheckboxClicked(goal, e)}/>
