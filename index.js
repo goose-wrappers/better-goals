@@ -9,7 +9,7 @@ exports.handler = async function (event, context) {
 		return "OK!";
 	}
 
-	if (event.rawPath.startsWith('/webpanel') || event.rawPath.startsWith("/configuration")) {
+	if (event.rawPath.startsWith('/webpanel') || event.rawPath.startsWith("/configuration") || event.raw.startsWith("/addon-configuration")) {
 
 		let data = fs.readFileSync("./build/index.html", {encoding: 'utf8'});
 		data = data.replace("<head>", "<head><base href='https://d2kzuxik6m89nh.cloudfront.net/'>");
