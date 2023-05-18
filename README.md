@@ -1,4 +1,4 @@
-# Better Goals 🎯
+# Better Goals 🎯 for JIRA Kanban Boards
 
 Better Goals (noun): a JIRA add-on to be a guiding north-star for product manager and team leaders; to commit to a 
 short list of goals and to deliver on those goals.
@@ -14,6 +14,9 @@ https://marketplace.atlassian.com/apps/1231053/better-goals-for-kanban-boards
 
 Our design is open sourced too, check it out in Figma!
 https://www.figma.com/community/file/1237139831380534311
+
+Share feedback, questions or report bugs here:
+https://goose-wrappers.atlassian.net/servicedesk/customer/portal/1
 
 ##### Development
 
