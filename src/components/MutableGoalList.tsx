@@ -11,6 +11,7 @@ export const MutableGoalList: FC<{
 }> = ({list, onListChanged, maxItems}): ReactElement => {
 
 	const [showAddAnotherGoal, setShowAddAnotherGoal] = useState(false);
+	const [addAnotherGoalLabel, setAddAnotherGoalLabel] = useState("Add another goal");
 
 	const onGoalAdded = (label: string) => {
 		if (label.trim().length === 0) {
@@ -26,14 +27,11 @@ export const MutableGoalList: FC<{
 		const updated = [...list, goal];
 
 		onListChanged(updated);
-		setShowAddAnotherGoal(updated.length < maxItems);
 	};
 
 	const onDeleteGoal = (id: string) => {
 		const updated = list.filter((goal: Goal) => goal.id !== id);
 		onListChanged(updated);
-
-		setShowAddAnotherGoal(updated.length < maxItems);
 	};
 
 	const onDragEnd = (result: DropResult) => {
@@ -50,8 +48,15 @@ export const MutableGoalList: FC<{
 	};
 
 	useEffect(() => {
+		if (list.length === 0) {
+			/// first "Add Another Goal" item has a special label
+			setAddAnotherGoalLabel("Here you can add your first goal! 🎉");
+		} else {
+			setAddAnotherGoalLabel("Add another goal");
+		}
+
 		setShowAddAnotherGoal(list.length < maxItems);
-	}, []);
+	}, [list]);
 
 	return (
 		<>
@@ -81,7 +86,7 @@ export const MutableGoalList: FC<{
 			</DragDropContext>
 
 			{showAddAnotherGoal &&
-				<AddAnotherGoal onSubmit={(label) => onGoalAdded(label)}/>
+				<AddAnotherGoal onSubmit={onGoalAdded} label={addAnotherGoalLabel}/>
 			}
 		</>
 	);

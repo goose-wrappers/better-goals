@@ -5,8 +5,9 @@ import DragHandlerIcon from "@atlaskit/icon/glyph/drag-handler";
 import {MyTextFieldWithEmoji} from "./MyTextFieldWithEmoji";
 
 export const AddAnotherGoal: FC<{
-	onSubmit?: (label: string) => void;
-}> = ({onSubmit}): ReactElement => {
+	label: string;
+	onSubmit: (label: string) => void;
+}> = ({label, onSubmit}): ReactElement => {
 
 	const [showEditField, setShowEditField] = useState(false);
 
@@ -15,10 +16,7 @@ export const AddAnotherGoal: FC<{
 	};
 
 	const onConfirm = (label: string) => {
-		if (onSubmit) {
-			onSubmit(label);
-		}
-
+		onSubmit(label);
 		setShowEditField(false);
 	};
 
@@ -38,7 +36,7 @@ export const AddAnotherGoal: FC<{
 
 								<div style={{float: "left", width: "calc(100% - 64px)"}}>
 									<div style={{color: "gray", fontStyle: "italic"}}>
-										<Checkbox label="Add another goal" name="Add another goal" onClick={onLabelClicked} testId="add-another-goal-checkbox"/>
+										<Checkbox label={label} name="Add another goal" onClick={onLabelClicked} testId="add-another-goal-checkbox"/>
 									</div>
 								</div>
 
