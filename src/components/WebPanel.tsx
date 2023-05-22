@@ -11,6 +11,8 @@ import {AtlassianClient} from "../services/atlassian-client";
 import {DateUtils} from "../services/date-utils";
 import {IterationDurationUtils} from "../services/iteration-duration-utils";
 import {UserPropertiesService} from "../services/user-properties-service";
+import {environment} from "../environments/environment";
+import {AddonProperties} from "../services/addon-properties";
 
 export const WebPanel: FC = (): ReactElement => {
 
@@ -100,8 +102,9 @@ export const WebPanel: FC = (): ReactElement => {
 		});
 	};
 
-	const initializeBoardService = (projectKey: string, boardId: string) => {
-		const datastore = new DatastoreService(projectKey, boardId);
+	const initializeBoardService = (addonKey: string, projectKey: string, boardId: string) => {
+		const addonProperties = new AddonProperties(addonKey);
+		const datastore = new DatastoreService(addonProperties, projectKey, boardId);
 		const boardService = new BoardService(datastore);
 
 		setBoardService(boardService);
@@ -122,7 +125,7 @@ export const WebPanel: FC = (): ReactElement => {
 	useEffect(() => {
 
 		const parsed = QueryParserService.parse(document.location.search);
-		const addonKey = parsed.get("addon-name") || "com.wandering.better-goals";
+		const addonKey = parsed.get("addon-name") || environment.addonKey;
 
 		AtlassianClient.getLocation().then((url: string) => {
 			LoggerService.log("[WebPanel useEffect] AtlassianConnect says url is " + url);
@@ -139,7 +142,7 @@ export const WebPanel: FC = (): ReactElement => {
 				// const configurationUrl = `https://${instanceName}/jira/software/c/projects/${projectKey}/boards/${boardId}?config=${addonKey}__-configuation-page&insightsConfigTab=board`;
 				// setConfigurationUrl(configurationUrl);
 
-				initializeBoardService(projectKey, boardId);
+				initializeBoardService(addonKey, projectKey, boardId);
 			}
 		});
 	}, []);

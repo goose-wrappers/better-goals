@@ -24,6 +24,8 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       - run: npm install
+      - name: Renamed production environment onto default environment
+        run: mv src/environments/environment.prod.ts src/environments/environment.ts
       - run: npm run build
       - name: Upload static assets to S3
         run: |

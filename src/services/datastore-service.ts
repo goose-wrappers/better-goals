@@ -1,37 +1,34 @@
 import {AddonConfiguration} from "../models/addon-configuration";
-import {ProjectProperties} from "./project-properties";
 import {GoalsHistory} from "../models/goals-history";
 import {AtlassianResponse} from "./atlassian-response";
+import {AddonProperties} from "./addon-properties";
 
 export class DatastoreService {
 
-	private projectProperties: ProjectProperties;
-
-	public constructor(private projectKey: string, private boardId: string) {
-		this.projectProperties = new ProjectProperties(projectKey);
+	public constructor(private addonProperties: AddonProperties, private projectKey: string, private boardId: string) {
 	}
 
 	public saveGoalHistory(goalsHistory: GoalsHistory): Promise<AtlassianResponse> {
-		return this.projectProperties.putProperty(`goal_history_${this.boardId}`, goalsHistory);
+		return this.addonProperties.putProperty(`goal_history_${this.projectKey}_${this.boardId}`, goalsHistory);
 	}
 
 	public getGoalHistory(): Promise<GoalsHistory> {
-		return this.projectProperties.getProperty<GoalsHistory>(`goal_history_${this.boardId}`);
+		return this.addonProperties.getProperty<GoalsHistory>(`goal_history_${this.projectKey}_${this.boardId}`);
 	}
 
 	public saveConfiguration(configuration: AddonConfiguration): Promise<AtlassianResponse> {
-		return this.projectProperties.putProperty(`config_${this.boardId}`, configuration);
+		return this.addonProperties.putProperty(`config_${this.projectKey}_${this.boardId}`, configuration);
 	}
 
 	public getConfiguration(): Promise<AddonConfiguration> {
-		return this.projectProperties.getProperty<AddonConfiguration>(`config_${this.boardId}`);
+		return this.addonProperties.getProperty<AddonConfiguration>(`config_${this.projectKey}_${this.boardId}`);
 	}
 
 	public deleteGoalHistory(): Promise<AtlassianResponse> {
-		return this.projectProperties.deleteProperty(`goal_history_${this.boardId}`);
+		return this.addonProperties.deleteProperty(`goal_history_${this.projectKey}_${this.boardId}`);
 	}
 
 	public deleteConfiguration(): Promise<AtlassianResponse> {
-		return this.projectProperties.deleteProperty(`config_${this.boardId}`);
+		return this.addonProperties.deleteProperty(`config_${this.projectKey}_${this.boardId}`);
 	}
 }
