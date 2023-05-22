@@ -244,8 +244,7 @@ export const IterationView: FC<{
 
 		const bottomLeft = cones >= 1;
 		const bottomRight = cones >= 2;
-		const topLeft = cones >= 4;
-		const topRight = topLeft;
+		const top = cones >= 4;
 
 		return (
 			<div>
@@ -257,11 +256,11 @@ export const IterationView: FC<{
 					<img src="https://i.imgur.com/gWIch1F.gif" alt="" className="confetti-gif confetti-gif-br"/>
 				}
 
-				{topLeft &&
+				{top &&
 					<img src="https://i.imgur.com/gWIch1F.gif" alt="" className="confetti-gif confetti-gif-tl"/>
 				}
 
-				{topRight &&
+				{top &&
 					<img src="https://i.imgur.com/gWIch1F.gif" alt="" className="confetti-gif confetti-gif-tr"/>
 				}
 			</div>
