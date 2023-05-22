@@ -7,9 +7,13 @@ export class AddonProperties {
 	public constructor(private addonKey: string) {
 	}
 
+	private getUrl(endpoint: string): string {
+		return `/rest/atlassian-connect/1/addons/${this.addonKey}/properties/${endpoint}`;
+	}
+
 	public deleteProperty(name: string): Promise<AtlassianResponse> {
 		return AtlassianClient.request({
-			url: `/rest/atlassian-connect/1/addons/${this.addonKey}/properties/${name}`,
+			url: this.getUrl(name),
 			type: "DELETE",
 			contentType: "application/json",
 		});
@@ -17,7 +21,7 @@ export class AddonProperties {
 
 	public putProperty(name: string, data: any): Promise<AtlassianResponse> {
 		return AtlassianClient.request({
-			url: `/rest/atlassian-connect/1/addons/${this.addonKey}/properties/${name}`,
+			url: this.getUrl(name),
 			type: "PUT",
 			contentType: "application/json",
 			data: JSON.stringify(data)
@@ -27,6 +31,7 @@ export class AddonProperties {
 	public getProperties(): Promise<JiraPropertiesResult> {
 		return new Promise((resolve, reject) => {
 			AtlassianClient.request({
+				type: "GET",
 				url: `/rest/atlassian-connect/1/addons/${this.addonKey}/properties/`,
 			}).then((response: AtlassianResponse) => {
 				const json = JSON.parse(response.body);
@@ -38,7 +43,8 @@ export class AddonProperties {
 	public getProperty<T>(name: string): Promise<T> {
 		return new Promise((resolve, reject) => {
 			AtlassianClient.request({
-				url: `/rest/atlassian-connect/1/addons/${this.addonKey}/properties/${name}`,
+				type: "GET",
+				url: this.getUrl(name),
 			}).then((response: AtlassianResponse) => {
 				const json = JSON.parse(response.body);
 				resolve(json.value);
