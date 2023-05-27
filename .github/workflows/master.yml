@@ -47,10 +47,10 @@ jobs:
           set -e
           # make sure better-goals.goosewrappers.dev renders a valid json
           apt-get update && apt-get install -y jq
-          curl -s https://better-goals.goosewrappers.dev/atlassian-connect.json | jq
+          curl -s https://better-goals.goosewrappers.dev/atlassian-connect.json | jq >/dev/null
           # make sure cdn serves the latest version
           VERSIONED_MAIN_JS=$( sed -n 's/.*src="\([^"]*\).*/\1/p' < build/index.html )
           CLOUDFRONT_MAIN_JS="${CLOUDFRONT_ENDPOINT}${VERSIONED_MAIN_JS=}"
-          curl -s --compressed ${CLOUDFRONT_MAIN_JS} | grep document.getElementById
+          curl -s --compressed ${CLOUDFRONT_MAIN_JS} | grep document.getElementById >/dev/null
 
 
