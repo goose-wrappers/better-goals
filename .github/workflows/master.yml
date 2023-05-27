@@ -51,6 +51,6 @@ jobs:
           # make sure cdn serves the latest version
           VERSIONED_MAIN_JS=$( sed -n 's/.*src="\([^"]*\).*/\1/p' < build/index.html )
           CLOUDFRONT_MAIN_JS="${CLOUDFRONT_ENDPOINT}${VERSIONED_MAIN_JS=}"
-          curl --quiet --compressed ${CLOUDFRONT_MAIN_JS} | grep document.getElementById
+          curl -s --compressed ${CLOUDFRONT_MAIN_JS} | grep document.getElementById
 
 
