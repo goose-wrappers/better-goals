@@ -12,6 +12,7 @@ jobs:
       BETTER_GOALS_S3: "better-goals-cdn"
       LAMBDA_ROLE: "arn:aws:iam::819351115289:role/iam_for_lambda"
       LAMBDA_FUNCTION_NAME: "better-goals"
+      CLOUDFRONT_ENDPOINT: "https://d2kzuxik6m89nh.cloudfront.net/"
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -24,18 +25,32 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       - run: npm install
-      - name: Renamed production environment onto default environment
+      - name: Rename production environment onto default environment
         run: mv src/environments/environment.prod.ts src/environments/environment.ts
-      - run: npm run build
+      - name: Run tests
+        run: npm run test
+      - name: Build project
+        run: npm run build
       - name: Upload static assets to S3
         run: |
           aws s3 cp --recursive build/ "s3://${BETTER_GOALS_S3}"
       - name: Upload atlassian-connect handler to lambda
         run: |
+          set -e
           zip -q function.zip index.js atlassian-connect.json build/index.html
           echo aws lambda create-function --runtime nodejs16.x --handler index.handler --function-name "$LAMBDA_FUNCTION_NAME" --role "$LAMBDA_ROLE" --zip-file fileb://function.zip
           echo aws lambda create-function-url-config --function-name "$LAMBDA_FUNCTION_NAME" --auth-type NONE
           echo aws lambda add-permission --function-name "$LAMBDA_FUNCTION_NAME" --statement-id FunctionURLAllowPublicAccess --action "lambda:InvokeFunctionUrl" --principal '*' --function-url-auth-type NONE
           aws lambda update-function-code --function-name "$LAMBDA_FUNCTION_NAME" --zip-file fileb://function.zip
+      - name: Run post deployment tests
+        run: |
+          set -e
+          # make sure better-goals.goosewrappers.dev renders a valid json
+          npm install -g jq
+          curl https://better-goals.goosewrappers.dev/atlassian-connect.json | jq
+          # make sure cdn serves the latest version
+          VERSIONED_MAIN_JS=$( sed -n 's/.*src="\([^"]*\).*/\1/p' < build/index.html )
+          CLOUDFRONT_MAIN_JS="${CLOUDFRONT_ENDPOINT}${VERSIONED_MAIN_JS=}"
+          curl --quiet --compressed ${CLOUDFRONT_MAIN_JS} | grep document.getElementById
 
 
