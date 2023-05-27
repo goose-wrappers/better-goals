@@ -46,7 +46,7 @@ jobs:
         run: |
           set -e
           # make sure better-goals.goosewrappers.dev renders a valid json
-          npm install -g --quiet jq commander async rimraf winston
+          apt-get update && apt-get install -y jq
           curl -s https://better-goals.goosewrappers.dev/atlassian-connect.json | jq
           # make sure cdn serves the latest version
           VERSIONED_MAIN_JS=$( sed -n 's/.*src="\([^"]*\).*/\1/p' < build/index.html )
