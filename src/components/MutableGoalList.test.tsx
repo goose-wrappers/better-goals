@@ -27,15 +27,18 @@ beforeEach(() => {
 test("adds a new goal", async () => {
 	renderMutableGoalList();
 
+	const MY_TEXTFIELD_WITH_EMOJI_ID = "my-textfield-with-emoji";
+	const EMOJI_ICON_IN_TEXTFIELD_ID = "emoji-icon-in-textfield";
+
 	// by default, the inline edit is disabled
-	expect(await screen.queryByTestId("emoji-icon-in-textfield")).toBeNull();
+	expect(await screen.queryByTestId(EMOJI_ICON_IN_TEXTFIELD_ID)).toBeNull();
 
 	// clicking on the label "Add Another Goal"
 	const addAnotherGoalCheckbox = await screen.getByTestId("add-another-goal-checkbox--checkbox-label");
 	await userEvent.click(addAnotherGoalCheckbox);
 
 	// now the ui has been replaced, the checkbox is gone, and we have textfield + emoji icon, emoji picker not in DOM
-	await screen.getByTestId("my-textfield-with-emoji");
-	await screen.getByTestId("emoji-icon-in-textfield");
+	await screen.getByTestId(MY_TEXTFIELD_WITH_EMOJI_ID);
+	await screen.getByTestId(EMOJI_ICON_IN_TEXTFIELD_ID);
 	expect(await screen.queryByTestId("emoji-picker")).toBeNull();
 });
