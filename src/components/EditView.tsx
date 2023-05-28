@@ -121,11 +121,14 @@ export const EditView: FC<{
 
 		const ref = useRef<HTMLDivElement>(null);
 
-		const onGotchaClicked = () => {
+		const onGotchaClicked = (event: React.MouseEvent<HTMLAnchorElement>) => {
 			if (ref.current) {
 				ref.current.style.opacity = "0";
 				setTimeout(() => setShowFirstTip(false), 1000);
 			}
+
+			event.preventDefault();
+			return false;
 		};
 
 		return (
