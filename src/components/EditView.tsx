@@ -265,7 +265,10 @@ export const EditView: FC<{
 					</TabPanel>
 					<TabPanel>
 						<div style={{marginTop: "1.5em", width: "100%", textAlign: "center", fontSize: "1em"}}>
-							We are adding more configuration options soon! 🎉
+							We are adding more configuration options soon! 🎉<br />
+							<br />
+							Check out our roadmap here: <br />
+							<a href="https://goose-wrappers.atlassian.net/l/cp/2c2gY0ZN" target="_blank" rel="noreferrer noopener">https://goose-wrappers.atlassian.net/l/cp/2c2gY0ZN</a>
 						</div>
 					</TabPanel>
 				</Tabs>
