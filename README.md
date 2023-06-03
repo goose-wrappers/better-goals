@@ -31,8 +31,8 @@ One time installation:
 Workflow routine:
 
 1. `npm start` # launches react-script server
-1. `npm run local` # starts local development server
-1. You will be given an ngrok url to atlassian-connect.json, open add-on management by clicking `Apps -> Manage your apps` in Jira, then click on `Upload App` and paste the url here.
+2. `npm run local` # starts local development server
+3. You will be given an ngrok url to atlassian-connect.json, open add-on management by clicking `Apps -> Manage your apps` in Jira, then click on `Upload App` and paste the url here.
 
 You can make changes to any of the files in `public/*` and in `src/*` without a need to restart any service.
 
