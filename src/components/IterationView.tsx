@@ -1,6 +1,7 @@
 import React, {FC, ReactElement, useEffect, useState} from "react";
-import WarningIcon from "@atlaskit/icon/glyph/warning";
-import {Y300} from "@atlaskit/theme/colors";
+//import WarningIcon from "@atlaskit/icon/glyph/warning";
+import InfoIcon from "@atlaskit/icon/glyph/info";
+import {P300,Y300} from "@atlaskit/theme/colors";
 import {token} from "@atlaskit/tokens";
 import {AtlassianClient} from "../services/atlassian-client";
 import {BetterGoalsLogo} from "./BetterGoalsLogo";
@@ -126,7 +127,7 @@ export const IterationView: FC<{
 			<br style={{clear: "both"}}/>
 		</>;
 	};
-
+	
 	const IterationViewFooter = () => {
 		return (<>
 			<div style={{display: "flex", flexDirection: "row"}}>
@@ -151,7 +152,7 @@ export const IterationView: FC<{
 		return <>
 			<Blanket isTinted={true} onBlanketClicked={onBlanketClicked}></Blanket>
 			<div style={{position: "absolute", width: "100%"}}>
-				<Flag icon={<WarningIcon primaryColor={token("color.icon.information", Y300)} label="Warning"/>} id="1" appearance="normal" title="Oh Oh!"
+				<Flag icon={<InfoIcon primaryColor={token("color.icon.information", Y300)} label="Warning"/>} id="1" appearance="normal" title="Oh Oh!"
 					description="Are you sure you want to edit your ongoing iteration?"
 					actions={[
 						{content: "Yes!", onClick: onConfigureClicked},
@@ -190,6 +191,38 @@ export const IterationView: FC<{
 		return (
 			<FadeOutFlag title="Congratulations! Enjoy your first iteration 🥳" appearance="success" duration={4000}/>
 		);
+	};
+
+	const [isTenthDay, setIsTenthDay] = useState(false);
+	useEffect(() => {
+		const now = new Date();
+		if (now.getDate() === 10) {
+			setIsTenthDay(true);
+		} else {
+			setIsTenthDay(false);
+		}
+	}, []);
+
+	const FeedbackCollector = () => {
+		const onReviewClick = () => {
+			window.open("https://marketplace.atlassian.com/apps/1231053/better-goals-for-kanban-boards?tab=reviews&hosting=cloud","_blank");
+		};
+		
+		const onContactUs = () => {
+			window.open("https://goose-wrappers.atlassian.net/servicedesk/customer/portal/1/group/1/create/8","_blank");
+		};
+		return <>
+			<Blanket isTinted={true} onBlanketClicked={onBlanketClicked}></Blanket>
+			<div style={{position: "absolute", left: "25%", width: "50%"}}>
+				<Flag icon={<InfoIcon primaryColor={token("color.icon.information", P300)} label="Info"/>} id="1" appearance="normal" title="Got a minute?? 🥺"
+					description="Share your thoughts and help us make our product even better!"
+					actions={[
+						{content: "🎯 Review us!", onClick: onReviewClick},
+						{content: "📩 Contact us", onClick: onContactUs},
+					]}
+				/>
+			</div>
+		</>;
 	};
 
 	const ConfettiGifForList: FC<{
@@ -272,6 +305,7 @@ export const IterationView: FC<{
 
 			{/* flag modal to bail out into configuration view */}
 			{showFlag && <EditIterationFlag/>}
+			{isTenthDay && <FeedbackCollector />}
 
 			{showFirstIterationCongrats && <FirstIterationCongratulations/>}
 
