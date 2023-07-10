@@ -206,7 +206,7 @@ export const IterationView: FC<{
 
 	const FeedbackCollector = () => {
 		const onReviewClick = () => {
-			window.open("https://marketplace.atlassian.com/apps/1231053/better-goals-for-kanban-boards?tab=reviews"_blank");
+			window.open("https://marketplace.atlassian.com/apps/1231053/better-goals-for-kanban-boards?tab=reviews", "_blank");
 		};
 		
 		const onContactUs = () => {
