@@ -1,6 +1,7 @@
 import React, {FC, ReactElement, useEffect, useState} from "react";
 //import WarningIcon from "@atlaskit/icon/glyph/warning";
 import InfoIcon from "@atlaskit/icon/glyph/info";
+import WarningIcon from "@atlaskit/icon/glyph/info";
 import {P300,Y300} from "@atlaskit/theme/colors";
 import {token} from "@atlaskit/tokens";
 import {AtlassianClient} from "../services/atlassian-client";
@@ -152,7 +153,7 @@ export const IterationView: FC<{
 		return <>
 			<Blanket isTinted={true} onBlanketClicked={onBlanketClicked}></Blanket>
 			<div style={{position: "absolute", width: "100%"}}>
-				<Flag icon={<InfoIcon primaryColor={token("color.icon.information", Y300)} label="Warning"/>} id="1" appearance="normal" title="Oh Oh!"
+				<Flag icon={<WarningIcon primaryColor={token("color.icon.information", Y300)} label="Warning"/>} id="1" appearance="normal" title="Oh Oh!"
 					description="Are you sure you want to edit your ongoing iteration?"
 					actions={[
 						{content: "Yes!", onClick: onConfigureClicked},
