@@ -196,16 +196,6 @@ export const IterationView: FC<{
 		);
 	};
 
-	// const [isTenthDay, setIsTenthDay] = useState(false);
-	// useEffect(() => {
-	// 	const now = new Date();
-	// 	if (now.getDate() === 20) {
-	// 		setIsTenthDay(true);
-	// 	} else {
-	// 		setIsTenthDay(false);
-	// 	}
-	// }, []);
-
 	function shouldShowPopup() {
 		const today = new Date();
 		const lastPopup = localStorage.getItem("lastPopup");
