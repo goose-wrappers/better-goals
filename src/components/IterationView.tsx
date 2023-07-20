@@ -36,6 +36,8 @@ export const IterationView: FC<{
 	const [showStartNewIteration, setShowStartNewIteration] = useState(false);
 	const [showFirstIterationCongrats, setShowFirstIterationCongrats] = useState(false);
 	const [showConfetti, setShowConfetti] = useState(false);
+	const [showFeedback, setShowFeedback] = useState(false);
+
 
 	const handleCloseDialog = () => {
 		AtlassianClient.closeDialog();
@@ -194,16 +196,41 @@ export const IterationView: FC<{
 		);
 	};
 
-	const [isTenthDay, setIsTenthDay] = useState(false);
-	useEffect(() => {
-		const now = new Date();
-		if (now.getDate() === 10) {
-			setIsTenthDay(true);
-		} else {
-			setIsTenthDay(false);
-		}
-	}, []);
+	// const [isTenthDay, setIsTenthDay] = useState(false);
+	// useEffect(() => {
+	// 	const now = new Date();
+	// 	if (now.getDate() === 20) {
+	// 		setIsTenthDay(true);
+	// 	} else {
+	// 		setIsTenthDay(false);
+	// 	}
+	// }, []);
 
+	function shouldShowPopup() {
+		const today = new Date();
+		const lastPopup = localStorage.getItem("lastPopup");
+	
+		if (lastPopup) {
+			const lastPopupDate = new Date(parseInt(lastPopup));
+			// Calculate the difference in months
+			const diffInMonths = (today.getFullYear() * 12 + today.getMonth()) - 
+				(lastPopupDate.getFullYear() * 12 + lastPopupDate.getMonth());
+			
+			if (diffInMonths >= 1) {
+				// More than a month has passed
+				localStorage.setItem("lastPopup", today.getTime().toString());
+				return true;
+			} else {
+				// Less than a month has passed
+				return false;
+			}
+		} else {
+			// User has never seen the popup
+			localStorage.setItem("lastPopup", today.getTime().toString());
+			return true;
+		}
+	}
+	
 	const FeedbackCollector = () => {
 		const onReviewClick = () => {
 			window.open("https://marketplace.atlassian.com/apps/1231053/better-goals-for-kanban-boards?tab=reviews", "_blank");
@@ -225,6 +252,13 @@ export const IterationView: FC<{
 			</div>
 		</>;
 	};
+
+	useEffect(() => {
+		if (shouldShowPopup()) {
+			setShowFeedback(true);
+		}
+	},
+	[]);
 
 	const ConfettiGifForList: FC<{
 		list: Array<Goal>;
@@ -306,9 +340,8 @@ export const IterationView: FC<{
 
 			{/* flag modal to bail out into configuration view */}
 			{showFlag && <EditIterationFlag/>}
-			{isTenthDay && <FeedbackCollector />}
-
 			{showFirstIterationCongrats && <FirstIterationCongratulations/>}
+			{showFeedback && <FeedbackCollector/>}
 
 			<div style={{width: "100%", display: "flex", flexDirection: "column", height: "100%"}}>
 				<div className="dialog-header">
