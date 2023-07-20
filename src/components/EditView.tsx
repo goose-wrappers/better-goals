@@ -178,7 +178,7 @@ export const EditView: FC<{
 					<TabList>
 						<Tab>Goals</Tab>
 						<Tab>History</Tab>
-						<Tab>Configuration</Tab>
+						<Tab>Contact Us</Tab>
 					</TabList>
 					<TabPanel>
 						{addonConfiguration &&
@@ -264,11 +264,17 @@ export const EditView: FC<{
 						</div>
 					</TabPanel>
 					<TabPanel>
-						<div style={{marginTop: "1.5em", width: "100%", textAlign: "center", fontSize: "1em"}}>
-							We are adding more configuration options soon! 🎉<br />
+						<div style={{marginTop: "1.5em", width: "100%", textAlign: "center", }}>
+							<div style={{fontSize: "2em"}}>  Got a minute?</div>
+							<a style={{fontSize: "2em"}} href="https://marketplace.atlassian.com/apps/1231053/better-goals-for-kanban-boards?tab=reviews" target="_blank" rel="noreferrer noopener">Review us in the marketplace!🥺❤️</a>
 							<br />
-							Check out our roadmap here: <br />
-							<a href="https://goose-wrappers.atlassian.net/l/cp/2c2gY0ZN" target="_blank" rel="noreferrer noopener">https://goose-wrappers.atlassian.net/l/cp/2c2gY0ZN</a>
+							<br />
+							<br />
+							<div style={{marginTop: "3.5em", fontSize: "1.2em"}} >
+							Contact us here:
+								<a href="mailto:support@goosewrappers.dev?subject=Share your feedback:"
+									target="_blank" rel="noreferrer">support@goosewrappers.dev</a>
+							</div>
 						</div>
 					</TabPanel>
 				</Tabs>
