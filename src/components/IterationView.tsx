@@ -65,6 +65,7 @@ export const IterationView: FC<{
 	};
 
 	const onBlanketClicked = () => {
+		setShowFeedback(false);
 		setShowFlag(false);
 	};
 
@@ -223,12 +224,15 @@ export const IterationView: FC<{
 	
 	const FeedbackCollector = () => {
 		const onReviewClick = () => {
+			setShowFeedback(false);
 			window.open("https://marketplace.atlassian.com/apps/1231053/better-goals-for-kanban-boards?tab=reviews", "_blank");
 		};
 		
 		const onContactUs = () => {
+			setShowFeedback(false);
 			window.open("https://goose-wrappers.atlassian.net/servicedesk/customer/portal/1/group/1/create/8","_blank");
 		};
+		
 		return <>
 			<Blanket isTinted={true} onBlanketClicked={onBlanketClicked}></Blanket>
 			<div style={{position: "absolute", left: "25%", width: "50%"}}>
