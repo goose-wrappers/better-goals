@@ -3,6 +3,7 @@
 	"description": "Better Goals",
 	"key": "dev.goosewrappers.better-goals",
 	"baseUrl": "https://iw6qyet5fg56ubaqeqwglujp7m0gmtuj.lambda-url.us-east-1.on.aws",
+	"enableLicensing": true,
 	"vendor": {
 		"name": "Goose Wrappers",
 		"url": "https://goosewrappers.dev/"
