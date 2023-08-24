@@ -15,7 +15,9 @@ import {environment} from "../environments/environment";
 import {AddonProperties} from "../services/addon-properties";
 import {LicenseMissing} from "./LicenseMissing";
 
-export const WebPanel: FC = (): ReactElement => {
+export const WebPanel: FC<{
+	lic?: string;
+}> = ({lic}): ReactElement => {
 
 	// warning! only use this for debugging
 	const DEBUG_WIPE_CONFIGURATON = false;
@@ -23,7 +25,6 @@ export const WebPanel: FC = (): ReactElement => {
 	const [boardService, setBoardService] = useState<BoardService>();
 	const [isConfigMode, setConfigMode] = useState(true);
 	const [configurationLoaded, setConfigurationLoaded] = useState(false);
-	const [lic, setLic] = useState<string>("none");
 
 	const handleClick: MouseEventHandler<HTMLDivElement> = (event) => {
 		// default, every click on the webpanel will close it. so we stop propagation.
@@ -129,9 +130,6 @@ export const WebPanel: FC = (): ReactElement => {
 		const parsed = QueryParserService.parse(document.location.search);
 		const addonKey = parsed.get("addon-name") || environment.addonKey;
 
-		const lic = parsed.get("lic") || "none";
-		setLic(lic);
-
 		AtlassianClient.getLocation().then((url: string) => {
 			LoggerService.log("[WebPanel useEffect] AtlassianConnect says url is " + url);
 
@@ -156,7 +154,7 @@ export const WebPanel: FC = (): ReactElement => {
 		<div className="ac-content" onClick={handleClick}>
 			<div className="dialog-wrapper">
 
-				{lic == "none" &&
+				{lic === "none" &&
 					<>
 						<LicenseMissing/>
 
@@ -166,7 +164,7 @@ export const WebPanel: FC = (): ReactElement => {
 					</>
 				}
 
-				{lic != "none" &&
+				{lic == undefined || lic === "active" &&
 					<>
 						{configurationLoaded && isConfigMode && boardService &&
 							<EditView boardService={boardService} onIterationStarted={onIterationStated} lic={lic}/>
