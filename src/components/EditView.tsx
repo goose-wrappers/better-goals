@@ -19,7 +19,7 @@ import CrossIcon from "@atlaskit/icon/glyph/cross";
 export const EditView: FC<{
 	boardService: BoardService;
 	onIterationStarted: () => void;
-	lic: string;
+	lic: "active" | "none";
 }> = ({boardService, onIterationStarted, lic}): ReactElement => {
 
 	const [showSpinner, setShowSpinner] = useState(false);

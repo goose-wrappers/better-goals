@@ -159,15 +159,15 @@ export const WebPanel: FC<{
 						<LicenseMissing/>
 
 						{configurationLoaded && boardService &&
-							<EditView boardService={boardService} onIterationStarted={onIterationStated} lic={lic}/>
+							<EditView boardService={boardService} onIterationStarted={onIterationStated} lic="none"/>
 						}
 					</>
 				}
 
-				{lic == undefined || lic === "active" &&
+				{(lic === undefined || lic === "active") &&
 					<>
 						{configurationLoaded && isConfigMode && boardService &&
-							<EditView boardService={boardService} onIterationStarted={onIterationStated} lic={lic}/>
+							<EditView boardService={boardService} onIterationStarted={onIterationStated} lic="active"/>
 						}
 
 						{configurationLoaded && !isConfigMode && boardService &&
