@@ -13,6 +13,7 @@ import {IterationDurationUtils} from "../services/iteration-duration-utils";
 import {UserPropertiesService} from "../services/user-properties-service";
 import {environment} from "../environments/environment";
 import {AddonProperties} from "../services/addon-properties";
+import {LicenseMissing} from "./LicenseMissing";
 
 export const WebPanel: FC = (): ReactElement => {
 
@@ -22,6 +23,7 @@ export const WebPanel: FC = (): ReactElement => {
 	const [boardService, setBoardService] = useState<BoardService>();
 	const [isConfigMode, setConfigMode] = useState(true);
 	const [configurationLoaded, setConfigurationLoaded] = useState(false);
+	const [lic, setLic] = useState<string>("none");
 
 	const handleClick: MouseEventHandler<HTMLDivElement> = (event) => {
 		// default, every click on the webpanel will close it. so we stop propagation.
@@ -127,6 +129,9 @@ export const WebPanel: FC = (): ReactElement => {
 		const parsed = QueryParserService.parse(document.location.search);
 		const addonKey = parsed.get("addon-name") || environment.addonKey;
 
+		const lic = parsed.get("lic") || "none";
+		setLic(lic);
+
 		AtlassianClient.getLocation().then((url: string) => {
 			LoggerService.log("[WebPanel useEffect] AtlassianConnect says url is " + url);
 
@@ -150,12 +155,27 @@ export const WebPanel: FC = (): ReactElement => {
 	return (
 		<div className="ac-content" onClick={handleClick}>
 			<div className="dialog-wrapper">
-				{configurationLoaded && isConfigMode && boardService &&
-					<EditView boardService={boardService} onIterationStarted={onIterationStated}/>
+
+				{lic == "none" &&
+					<>
+						<LicenseMissing/>
+
+						{configurationLoaded && boardService &&
+							<EditView boardService={boardService} onIterationStarted={onIterationStated} lic={lic}/>
+						}
+					</>
 				}
 
-				{configurationLoaded && !isConfigMode && boardService &&
-					<IterationView boardService={boardService} onConfigureClicked={onConfigureClicked} onStartNewIterationClicked={onStartNewIterationClicked}/>
+				{lic != "none" &&
+					<>
+						{configurationLoaded && isConfigMode && boardService &&
+							<EditView boardService={boardService} onIterationStarted={onIterationStated} lic={lic}/>
+						}
+
+						{configurationLoaded && !isConfigMode && boardService &&
+							<IterationView boardService={boardService} onConfigureClicked={onConfigureClicked} onStartNewIterationClicked={onStartNewIterationClicked}/>
+						}
+					</>
 				}
 			</div>
 		</div>
