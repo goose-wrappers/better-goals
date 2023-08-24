@@ -51,7 +51,7 @@
 				"key": "board-links",
 				"location": "jira.agile.board.tools",
 				"weight": 10,
-				"url": "/webpanel?_=1",
+				"url": "/webpanel2?_=1",
 				"target": {
 					"type": "dialog",
 					"options": {
