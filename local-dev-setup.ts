@@ -20,7 +20,7 @@ const localFetch = (url: string, options: RequestOptions) => {
 			reject(err);
 		});
 	});
-}
+};
 
 class LocalDevSetup {
 

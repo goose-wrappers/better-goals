@@ -13,8 +13,11 @@ import {IterationDurationUtils} from "../services/iteration-duration-utils";
 import {UserPropertiesService} from "../services/user-properties-service";
 import {environment} from "../environments/environment";
 import {AddonProperties} from "../services/addon-properties";
+import {LicenseMissing} from "./LicenseMissing";
 
-export const WebPanel: FC = (): ReactElement => {
+export const WebPanel: FC<{
+	lic?: string;
+}> = ({lic}): ReactElement => {
 
 	// warning! only use this for debugging
 	const DEBUG_WIPE_CONFIGURATON = false;
@@ -150,12 +153,27 @@ export const WebPanel: FC = (): ReactElement => {
 	return (
 		<div className="ac-content" onClick={handleClick}>
 			<div className="dialog-wrapper">
-				{configurationLoaded && isConfigMode && boardService &&
-					<EditView boardService={boardService} onIterationStarted={onIterationStated}/>
+
+				{lic === "none" &&
+					<>
+						<LicenseMissing/>
+
+						{configurationLoaded && boardService &&
+							<EditView boardService={boardService} onIterationStarted={onIterationStated} lic="none"/>
+						}
+					</>
 				}
 
-				{configurationLoaded && !isConfigMode && boardService &&
-					<IterationView boardService={boardService} onConfigureClicked={onConfigureClicked} onStartNewIterationClicked={onStartNewIterationClicked}/>
+				{(lic === undefined || lic === "active") &&
+					<>
+						{configurationLoaded && isConfigMode && boardService &&
+							<EditView boardService={boardService} onIterationStarted={onIterationStated} lic="active"/>
+						}
+
+						{configurationLoaded && !isConfigMode && boardService &&
+							<IterationView boardService={boardService} onConfigureClicked={onConfigureClicked} onStartNewIterationClicked={onStartNewIterationClicked}/>
+						}
+					</>
 				}
 			</div>
 		</div>

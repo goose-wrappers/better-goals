@@ -8,6 +8,7 @@ import {WebPanel} from "./components/WebPanel";
 import {ConfigurationPage} from "./components/ConfigurationPage";
 import {IndexPage} from "./components/IndexPage";
 import {AddonConfigurationPage} from "./components/AddonConfigurationPage";
+import {WebPanel2} from "./components/WebPanel2";
 
 const router = createBrowserRouter([
 	{
@@ -18,6 +19,11 @@ const router = createBrowserRouter([
 	{
 		path: "/webpanel",
 		element: <WebPanel/>,
+		errorElement: <ErrorPage/>,
+	},
+	{
+		path: "/webpanel2",
+		element: <WebPanel2/>,
 		errorElement: <ErrorPage/>,
 	},
 	{

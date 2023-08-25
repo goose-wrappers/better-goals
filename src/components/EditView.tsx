@@ -19,7 +19,8 @@ import CrossIcon from "@atlaskit/icon/glyph/cross";
 export const EditView: FC<{
 	boardService: BoardService;
 	onIterationStarted: () => void;
-}> = ({boardService, onIterationStarted}): ReactElement => {
+	lic: "active" | "none";
+}> = ({boardService, onIterationStarted, lic}): ReactElement => {
 
 	const [showSpinner, setShowSpinner] = useState(false);
 	const [minimumDateInPicker, setMinimumDateInPicker] = useState("");
@@ -176,112 +177,122 @@ export const EditView: FC<{
 			<div style={{flex: 1}} className="tabs-container">
 				<Tabs id="default">
 					<TabList>
-						<Tab>Goals</Tab>
+						{lic != "none" &&
+							<Tab>Goals</Tab>
+						}
 						<Tab>History</Tab>
-						<Tab>Contact Us</Tab>
+						{lic != "none" &&
+							<Tab>Contact Us</Tab>
+						}
 					</TabList>
-					<TabPanel>
-						{addonConfiguration &&
-							<div style={{width: "100%", display: "flex", flexDirection: "column"}}>
-								{showWelcomeToFirstIteration &&
-									<div style={{width: "100%", textAlign: "center", marginTop: "0.66em", fontSize: "1.15em"}}>
-										Welcome to your first iteration! 🚀 🎉 🥰
-									</div>
-								}
-								<div style={{flex: 1, marginTop: "1.25em"}}>
-
-									<div style={{display: "flex", flexDirection: "row"}}>
-										<div style={{flex: "2"}}>
-											<div className={isInvalidGoal ? "field-validation-failed" : ""} onClick={() => setInvalidGoal(false)}>
-												<MutableGoalList list={addonConfiguration.goals} onListChanged={handleListChanged} maxItems={3}/>
-											</div>
-											<div style={{width: "100%", marginTop: "2.5em"}}>
-												<div>
-													<div className="iteration-select-label">
-														Iteration start date:
-													</div>
-													<div className="iteration-select-value" onClick={iterationStartClicked}>
-														<div className={isInvalidDate ? "field-validation-failed" : ""}
-															style={{padding: "4px"}}>
-															{addonConfiguration.iterationStartDate}
-														</div>
-													</div>
-												</div>
-
-												<div>
-													<div className="iteration-select-label">
-														Iteration length:
-													</div>
-													<div className="iteration-select-value" onClick={iterationLengthClicked}>
-														<div className={isInvalidDate ? "field-validation-failed" : ""}
-															style={{padding: "4px"}}>
-															{addonConfiguration.iterationLengthWeeks} Weeks
-														</div>
-													</div>
-												</div>
-											</div>
-
-											{datePickerVisible &&
-												<DatePickerWithBlanket
-													minDate={minimumDateInPicker}
-													defaultValue={addonConfiguration.iterationStartDate}
-													onChange={(value) => onDateChanged(value)}
-													onBlankedClicked={onBlanketClicked}
-												/>
-											}
-
-											{lengthPickerVisible &&
-												<SelectWithBlanket
-													placeholder="Select iteration length"
-													defaultValue={{
-														label: `${addonConfiguration.iterationLengthWeeks} Weeks`,
-														value: addonConfiguration.iterationLengthWeeks
-													}}
-													options={[
-														{label: "1 Week", value: 1},
-														{label: "2 Weeks", value: 2},
-														{label: "3 Weeks", value: 3},
-														{label: "4 Weeks", value: 4},
-													]}
-													onChange={onIterationLengthChanged}
-													onBlanketClicked={onBlanketClicked}
-												/>
-											}
+					{lic != "none" &&
+						<TabPanel>
+							{addonConfiguration &&
+								<div style={{width: "100%", display: "flex", flexDirection: "column"}}>
+									{showWelcomeToFirstIteration &&
+										<div style={{width: "100%", textAlign: "center", marginTop: "0.66em", fontSize: "1.15em"}}>
+											Welcome to your first iteration! 🚀 🎉 🥰
 										</div>
-										<div style={{flex: "1"}}>
-											{showFirstTip &&
-												<FirstTipView/>
-											}
+									}
+									<div style={{flex: 1, marginTop: "1.25em"}}>
+
+										<div style={{display: "flex", flexDirection: "row"}}>
+											<div style={{flex: "2"}}>
+												<div className={isInvalidGoal ? "field-validation-failed" : ""} onClick={() => setInvalidGoal(false)}>
+													<MutableGoalList list={addonConfiguration.goals} onListChanged={handleListChanged}
+														maxItems={3}/>
+												</div>
+												<div style={{width: "100%", marginTop: "2.5em"}}>
+													<div>
+														<div className="iteration-select-label">
+															Iteration start date:
+														</div>
+														<div className="iteration-select-value" onClick={iterationStartClicked}>
+															<div className={isInvalidDate ? "field-validation-failed" : ""}
+																style={{padding: "4px"}}>
+																{addonConfiguration.iterationStartDate}
+															</div>
+														</div>
+													</div>
+
+													<div>
+														<div className="iteration-select-label">
+															Iteration length:
+														</div>
+														<div className="iteration-select-value" onClick={iterationLengthClicked}>
+															<div className={isInvalidDate ? "field-validation-failed" : ""}
+																style={{padding: "4px"}}>
+																{addonConfiguration.iterationLengthWeeks} Weeks
+															</div>
+														</div>
+													</div>
+												</div>
+
+												{datePickerVisible &&
+													<DatePickerWithBlanket
+														minDate={minimumDateInPicker}
+														defaultValue={addonConfiguration.iterationStartDate}
+														onChange={(value) => onDateChanged(value)}
+														onBlankedClicked={onBlanketClicked}
+													/>
+												}
+
+												{lengthPickerVisible &&
+													<SelectWithBlanket
+														placeholder="Select iteration length"
+														defaultValue={{
+															label: `${addonConfiguration.iterationLengthWeeks} Weeks`,
+															value: addonConfiguration.iterationLengthWeeks
+														}}
+														options={[
+															{label: "1 Week", value: 1},
+															{label: "2 Weeks", value: 2},
+															{label: "3 Weeks", value: 3},
+															{label: "4 Weeks", value: 4},
+														]}
+														onChange={onIterationLengthChanged}
+														onBlanketClicked={onBlanketClicked}
+													/>
+												}
+											</div>
+											<div style={{flex: "1"}}>
+												{showFirstTip &&
+													<FirstTipView/>
+												}
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
-						}
-					</TabPanel>
+							}
+						</TabPanel>
+					}
 					<TabPanel>
 						<div style={{marginTop: "2em", width: "100%"}}>
 							<HistoryTabPanel boardService={boardService}/>
 						</div>
 					</TabPanel>
-					<TabPanel>
-						<div style={{marginTop: "1.5em", width: "100%", textAlign: "center", }}>
-							<div style={{fontSize: "2em"}}>  Got a minute?</div>
-							<a style={{fontSize: "2em"}} href="https://marketplace.atlassian.com/apps/1231053/better-goals-for-kanban-boards?tab=reviews" target="_blank" rel="noreferrer noopener">Review us in the marketplace!🥺❤️</a>
-							<br />
-							<br />
-							<br />
-							<div style={{marginTop: "3.5em", fontSize: "1.2em"}} >
-							Contact us here:
-								<a href="mailto:support@goosewrappers.dev?subject=Share your feedback:"
-									target="_blank" rel="noreferrer">support@goosewrappers.dev</a>
+					{lic != "none" &&
+						<TabPanel>
+							<div style={{marginTop: "1.5em", width: "100%", textAlign: "center",}}>
+								<div style={{fontSize: "2em"}}>Got a minute?</div>
+								<a style={{fontSize: "2em"}} href="https://marketplace.atlassian.com/apps/1231053/better-goals-for-kanban-boards?tab=reviews"
+									target="_blank" rel="noreferrer noopener">Review us in the marketplace!🥺❤️</a>
+								<br/>
+								<br/>
+								<br/>
+								<div style={{marginTop: "3.5em", fontSize: "1.2em"}}>
+									Contact us here:
+									<a href="mailto:support@goosewrappers.dev?subject=Share your feedback:"
+										target="_blank" rel="noreferrer">support@goosewrappers.dev</a>
+								</div>
 							</div>
-						</div>
-					</TabPanel>
+						</TabPanel>
+					}
 				</Tabs>
 			</div>
 			<div className="dialog-footer">
 				<div style={{display: "flex"}}>
-					{addonConfiguration &&
+					{addonConfiguration && lic != "none" &&
 						<div style={{flex: "50%", marginTop: "auto"}}>
 							<Button appearance={"primary"} onClick={onReadyToStartClicked} isDisabled={showSpinner}>
 								Ready to Start?
