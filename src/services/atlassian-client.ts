@@ -5,8 +5,15 @@ interface GetCurrentUserResponse {
 	atlassianAccountId: string;
 }
 
-export interface AtlassiaDialog {
+interface AtlassianDialog {
 	on(event: string, callback: (data: any) => void): void;
+}
+
+export interface DialogOptions {
+	key: string;
+	width: string;
+	height: string;
+	chrome: boolean;
 }
 
 declare global {
@@ -17,7 +24,7 @@ declare global {
 			resize(width: string, height: string): void;
 			dialog: {
 				close(): void;
-				create(options: any): AtlassiaDialog;
+				create(options: DialogOptions): AtlassianDialog;
 			};
 			getCurrentUser(callback: (user: GetCurrentUserResponse) => void): void;
 		}
@@ -34,7 +41,7 @@ export class AtlassianClient {
 		window.AP.resize(width, height);
 	}
 
-	static createDialog(options: any): AtlassiaDialog {
+	static createDialog(options: DialogOptions): AtlassianDialog {
 		return window.AP.dialog.create(options);
 	}
 
