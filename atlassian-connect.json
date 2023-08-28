@@ -22,6 +22,25 @@
 	],
 	"apiVersion": 1,
 	"modules": {
+		"webItems": [
+			{
+				"name": {
+					"value": "IGNORED"
+				},
+				"key": "better-goals-web-panel-dialog",
+				"url": "/webpanel?dialog=1",
+				"weight": 10,
+				"target": {
+					"type": "dialog",
+					"options": {
+						"width": "800px",
+						"height": "400px",
+						"chrome": false
+					}
+				},
+				"location": "doesnt_exist"
+			}
+		],
 		"webSections": [
 			{
 				"key": "better-goals-admin-section",
@@ -29,6 +48,27 @@
 				"name": {
 					"value": "Better Goals"
 				}
+			},
+			{
+				"key": "better-goals-web-section",
+				"location": "jira.agile.board.tools",
+				"weight": 10,
+				"name": {
+					"value": "XXXX Better Goals \uD83C\uDFAF"
+				},
+				"conditions": [
+					{
+						"condition": "user_is_logged_in"
+					},
+					{
+						"condition": "entity_property_exists",
+						"invert": true,
+						"params": {
+							"entity": "addon",
+							"propertyKey": "better-goals-disabled"
+						}
+					}
+				]
 			}
 		],
 		"adminPages": [
@@ -46,39 +86,19 @@
 				]
 			}
 		],
-		"webItems": [
+		"webPanels": [
 			{
-				"key": "board-links",
-				"location": "jira.agile.board.tools",
-				"weight": 10,
+				"key": "better-goals-web-panel",
 				"url": "/webpanel2?_=1",
-				"target": {
-					"type": "dialog",
-					"options": {
-						"width": "800px",
-						"height": "400px",
-						"chrome": false
-					}
+				"location": "better-goals-web-section",
+				"layout": {
+					"width": "0px",
+					"height": "0px"
 				},
 				"name": {
 					"value": "Better Goals \uD83C\uDFAF"
-				},
-				"conditions": [
-					{
-						"condition": "user_is_logged_in"
-					},
-					{
-						"condition": "entity_property_exists",
-						"invert": true,
-						"params": {
-							"entity": "addon",
-							"propertyKey": "better-goals-disabled"
-						}
-					}
-				]
-			}
-		],
-		"webPanels": [
+				}
+			},
 			{
 				"key": "my-configuration-page",
 				"url": "/configuration",
