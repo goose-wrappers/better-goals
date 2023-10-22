@@ -34,6 +34,7 @@ exports.handler = async function (event) {
 	if ("authorization" in event.headers) {
 		const verifier = new JwtVerify();
 		if (!(await verifier.isJwtAuthenticated(event))) {
+			console.log("Authorization verification failed of jwt: " + event.headers["authorization"]);
 			return AUTHORIZATION_FAILED_RESPONSE;
 		}
 	}
