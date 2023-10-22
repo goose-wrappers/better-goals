@@ -1,28 +1,15 @@
-import {IncomingMessage, RequestOptions} from "http";
 
-const morgan = require("morgan");
-const ngrok = require("ngrok");
-const http = require("http");
 const fs = require("fs");
-const compression = require("compression");
 const os = require("os");
+const ngrok = require("ngrok");
+const morgan = require("morgan");
+const compression = require("compression");
 
 import express, {Request, Response} from "express";
+import {UrlFetchPromise} from "./url-fetch-promise";
+import JwtVerify from "./jwt-verify";
 
-const localFetch = (url: string, options: RequestOptions) => {
-	return new Promise((resolve, reject) => {
-		http.get(url, options, (response: IncomingMessage) => {
-			response.setEncoding("utf8");
-			let rawData = "";
-			response.on("data", (chunk) => rawData += chunk);
-			response.on("end", () => resolve(rawData));
-		}).on("error", (err: Error) => {
-			reject(err);
-		});
-	});
-};
-
-class LocalDevSetup {
+export class LocalDevSetup {
 
 	private ngrokUrl = "";
 
@@ -55,10 +42,20 @@ class LocalDevSetup {
 	}
 
 	private onAppInstalledCallback(req: Request, res: Response) {
-		console.log("Received installed callback with this request");
-		console.dir(req.headers);
-		console.dir(req.body);
-		res.send("OK!");
+		try {
+			console.log("Received installed callback with this request");
+			console.dir(req.headers);
+			console.dir(req.body);
+
+			const verifier = new JwtVerify();
+			const authorization = req.headers["authorization"] || "";
+			verifier.assertValidAuthorizationHeader(authorization);
+
+			res.send("OK!");
+		} catch (e: any) {
+			console.log(`Failed with ${e.message}`);
+			res.sendStatus(403);
+		}
 	}
 
 	public run() {
@@ -75,12 +72,11 @@ class LocalDevSetup {
 		app.post("/app-installed-callback", (req, res) => this.onAppInstalledCallback(req, res));
 
 		app.get("*", async (req, res) => {
-			localFetch("http://localhost:8001" + req.url, {headers: {"Accept": "*/*"}}).then((body) => {
-				res.send(body);
-			});
+			const body = await UrlFetchPromise.get("http://localhost:8001" + req.url, {headers: {"Accept": "*/*"}});
+			res.send(body);
 		});
 
-		localFetch("http://localhost:8001/", {headers: {"Accept": "*/*"}}).then((body) => {
+		UrlFetchPromise.get("http://localhost:8001/", {headers: {"Accept": "*/*"}}).then((body) => {
 			ngrok.connect({addr: port, region: "eu"}).then((url: string) => {
 				app.listen(port, () => {
 					this.ngrokUrl = url;
@@ -88,7 +84,7 @@ class LocalDevSetup {
 				});
 			});
 		}).catch((e) => {
-			console.error("Please run `npm start` in another window and then run this tool again");
+			console.error("Please run `npm start` in another window and then run this tool again (" + e.message + ")");
 			process.exit(1);
 		});
 	}
