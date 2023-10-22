@@ -37,7 +37,8 @@ jobs:
       - name: Upload atlassian-connect handler to lambda
         run: |
           set -e
-          zip -q function.zip index.js atlassian-connect.json build/index.html
+          tsc || true
+          zip -q function.zip index.js jwt-verify.js url-fetch-promise.js atlassian-connect.json build/index.html
           echo aws lambda create-function --runtime nodejs16.x --handler index.handler --function-name "$LAMBDA_FUNCTION_NAME" --role "$LAMBDA_ROLE" --zip-file fileb://function.zip
           echo aws lambda create-function-url-config --function-name "$LAMBDA_FUNCTION_NAME" --auth-type NONE
           echo aws lambda add-permission --function-name "$LAMBDA_FUNCTION_NAME" --statement-id FunctionURLAllowPublicAccess --action "lambda:InvokeFunctionUrl" --principal '*' --function-url-auth-type NONE
