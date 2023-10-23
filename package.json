@@ -34,7 +34,6 @@
 		"@atlaskit/toggle": "^12.5.8",
 		"@atlaskit/tooltip": "^17.6.5",
 		"@types/react-beautiful-dnd": "^13.1.4",
-		"atlassian-jwt": "^2.0.2",
 		"emoji-picker-react": "^4.4.8",
 		"react-beautiful-dnd": "^13.1.1",
 		"react-router-dom": "^6.6.1"
@@ -62,8 +61,10 @@
 		"@atlaskit/tabs": "^13.3.12",
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/user-event": "^14.4.3",
+		"@types/compression": "^1.7.4",
 		"@types/express": "^4.17.15",
 		"@types/jest": "^29.2.5",
+		"@types/morgan": "^1.9.7",
 		"@types/node": "^18.11.18",
 		"@types/react": "^18.0.26",
 		"@types/react-dom": "^18.0.10",
