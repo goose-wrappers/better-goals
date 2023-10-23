@@ -1,13 +1,14 @@
+import {JwtVerify} from "./jwt-verify";
 
 const fs = require("fs");
 const os = require("os");
 const ngrok = require("ngrok");
-const morgan = require("morgan");
-const compression = require("compression");
 
+import morgan from "morgan";
 import express, {Request, Response} from "express";
+import compression from "compression";
+
 import {UrlFetchPromise} from "./url-fetch-promise";
-import JwtVerify from "./jwt-verify";
 
 export class LocalDevSetup {
 

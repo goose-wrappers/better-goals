@@ -1,6 +1,6 @@
-import https from "https";
 import {RequestOptions} from "http";
 import * as http from "http";
+import * as https from "https";
 
 export class UrlFetchPromise {
 	public static async getHttp(url: string, options: RequestOptions): Promise<string> {

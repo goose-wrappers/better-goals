@@ -1,5 +1,5 @@
 const fs = require("fs");
-// const {JwtVerify} = require("./jwt-verify");
+const {JwtVerify} = require("./jwt-verify");
 
 exports.handler = async function (event) {
 
@@ -29,17 +29,26 @@ exports.handler = async function (event) {
 		return SUCCESSFUL_CALLBACK_RESPONSE;
 	};
 
+	const isJwtAuthenticated = async (event) => {
+		try {
+			const authorization = event.headers["authorization"] || "";
+
+			const verifier = new JwtVerify();
+			await verifier.assertValidAuthorizationHeader(authorization);
+			return true;
+		} catch (e) {
+			return false;
+		}
+	};
+
 	console.log("Handing request", event);
 
-	/*
 	if ("authorization" in event.headers) {
-		const verifier = new JwtVerify();
-		if (!(await verifier.isJwtAuthenticated(event))) {
+		if (!(await isJwtAuthenticated(event))) {
 			console.log("Authorization verification failed of jwt: " + event.headers["authorization"]);
 			return AUTHORIZATION_FAILED_RESPONSE;
 		}
 	}
-	*/
 
 	if (event.rawPath === "/atlassian-connect.json") {
 		return handleAtlassianConnectJson(event);
