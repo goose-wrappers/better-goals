@@ -1,6 +1,8 @@
 import React, {FC, ReactElement, useEffect, useState} from "react";
-import WarningIcon from "@atlaskit/icon/glyph/warning";
-import {Y300} from "@atlaskit/theme/colors";
+//import WarningIcon from "@atlaskit/icon/glyph/warning";
+import InfoIcon from "@atlaskit/icon/glyph/info";
+import WarningIcon from "@atlaskit/icon/glyph/info";
+import {P300,Y300} from "@atlaskit/theme/colors";
 import {token} from "@atlaskit/tokens";
 import {AtlassianClient} from "../services/atlassian-client";
 import {BetterGoalsLogo} from "./BetterGoalsLogo";
@@ -34,6 +36,8 @@ export const IterationView: FC<{
 	const [showStartNewIteration, setShowStartNewIteration] = useState(false);
 	const [showFirstIterationCongrats, setShowFirstIterationCongrats] = useState(false);
 	const [showConfetti, setShowConfetti] = useState(false);
+	const [showFeedback, setShowFeedback] = useState(false);
+
 
 	const handleCloseDialog = () => {
 		AtlassianClient.closeDialog();
@@ -61,6 +65,7 @@ export const IterationView: FC<{
 	};
 
 	const onBlanketClicked = () => {
+		setShowFeedback(false);
 		setShowFlag(false);
 	};
 
@@ -126,7 +131,7 @@ export const IterationView: FC<{
 			<br style={{clear: "both"}}/>
 		</>;
 	};
-
+	
 	const IterationViewFooter = () => {
 		return (<>
 			<div style={{display: "flex", flexDirection: "row"}}>
@@ -191,6 +196,63 @@ export const IterationView: FC<{
 			<FadeOutFlag title="Congratulations! Enjoy your first iteration 🥳" appearance="success" duration={4000}/>
 		);
 	};
+
+	function shouldShowPopup() {
+		const today = new Date();
+		const lastPopup = localStorage.getItem("lastPopup");
+	
+		if (lastPopup) {
+			const lastPopupDate = new Date(parseInt(lastPopup));
+			// Calculate the difference in months
+			const diffInMonths = (today.getFullYear() * 12 + today.getMonth()) - 
+				(lastPopupDate.getFullYear() * 12 + lastPopupDate.getMonth());
+			
+			if (diffInMonths >= 1) {
+				// More than a month has passed
+				localStorage.setItem("lastPopup", today.getTime().toString());
+				return true;
+			} else {
+				// Less than a month has passed
+				return false;
+			}
+		} else {
+			// User has never seen the popup
+			localStorage.setItem("lastPopup", today.getTime().toString());
+			return true;
+		}
+	}
+	
+	const FeedbackCollector = () => {
+		const onReviewClick = () => {
+			setShowFeedback(false);
+			window.open("https://marketplace.atlassian.com/apps/1231053/better-goals-for-kanban-boards?tab=reviews", "_blank");
+		};
+		
+		const onContactUs = () => {
+			setShowFeedback(false);
+			window.open("https://goose-wrappers.atlassian.net/servicedesk/customer/portal/1/group/1/create/8","_blank");
+		};
+		
+		return <>
+			<Blanket isTinted={true} onBlanketClicked={onBlanketClicked}></Blanket>
+			<div style={{position: "absolute", left: "25%", width: "50%"}}>
+				<Flag icon={<InfoIcon primaryColor={token("color.icon.information", P300)} label="Info"/>} id="1" appearance="normal" title="Got a minute?? 🥺"
+					description="Share your thoughts and help us make our product even better!"
+					actions={[
+						{content: "🎯 Review us!", onClick: onReviewClick},
+						{content: "📩 Contact us", onClick: onContactUs},
+					]}
+				/>
+			</div>
+		</>;
+	};
+
+	useEffect(() => {
+		if (shouldShowPopup()) {
+			setShowFeedback(true);
+		}
+	},
+	[]);
 
 	const ConfettiGifForList: FC<{
 		list: Array<Goal>;
@@ -272,8 +334,8 @@ export const IterationView: FC<{
 
 			{/* flag modal to bail out into configuration view */}
 			{showFlag && <EditIterationFlag/>}
-
 			{showFirstIterationCongrats && <FirstIterationCongratulations/>}
+			{showFeedback && <FeedbackCollector/>}
 
 			<div style={{width: "100%", display: "flex", flexDirection: "column", height: "100%"}}>
 				<div className="dialog-header">
